@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Kurs.Properties" GeneratedClassName="AppSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DB_path" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Implement later</Value>
+    </Setting>
+    <Setting Name="VisibleGateViewWidth" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
+    <Setting Name="VisibleGateViewHeightPerPin" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="PinViewRectWidth" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">150</Value>
+    </Setting>
+    <Setting Name="PinViewRectHeight" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Kurs.Models
 {
-    class Gate : IHavePins
+    public class Gate : IHavePins
     {
         public Gate(string name, int inputsNumber, bool[] function)
         {
