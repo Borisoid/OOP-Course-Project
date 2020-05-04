@@ -6,6 +6,17 @@ namespace Kurs.Models
 {
     public class Connection
     {
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Connection))
+                return false;
+            else
+            {
+                var c = obj as Connection;
+                return Object.ReferenceEquals(this.InputPin, c.InputPin) && 
+                    Object.ReferenceEquals(this.OutputPin, c.OutputPin);
+            }
+        }
         public InputPin InputPin { get; set; }
         public OutputPin OutputPin { get; set; }
 

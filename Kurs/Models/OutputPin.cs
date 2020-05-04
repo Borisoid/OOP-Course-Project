@@ -6,14 +6,14 @@ namespace Kurs.Models
 {
     public class OutputPin : Pin
     {
-        public OutputPin(IHavePins owner)
+        public OutputPin(IHavePins owner) : base()
         {
             Owner = owner;
         }
 
         public override void AssignConnection(Connection con)
         {
-            this.Connection = con;
+            this.Connections.Add(con);
             con.OutputPin = this;
         }
         public override bool Value
