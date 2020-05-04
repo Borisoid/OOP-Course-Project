@@ -49,6 +49,10 @@ namespace Kurs.ViewModels
         {
             get { return RectHeight / 2; }
         }
+        public int CircleDiameter
+        {
+            get { return CircleRadius * 2; }
+        }
         public int LineLength
         {
             get { return RectWidth - CircleRadius; }

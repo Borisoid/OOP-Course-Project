@@ -9,12 +9,13 @@
              Height="{Binding RectHeight}" Width="{Binding RectWidth}">
     <Canvas Height="{Binding RectHeight}" Width="{Binding RectWidth}"
             x:Name="canvas">
-        <Line X1="{Binding LineX1}" Y1="{Binding LineY}" X2="{Binding LineX2}" Y2="{Binding LineY}"
-              Canvas.Top="0"
+        <Line X1="{Binding LineX1}" X2="{Binding LineX2}"
+              Canvas.Top="{Binding LineY}"
               Canvas.Left="0"
               Stroke="Black"
-              Width="5"/>
-        <Ellipse Height="{Binding CircleRadius}" Width="{Binding CircleRadius}"
+              StrokeThickness="2"
+              IsHitTestVisible="False"/>
+        <Ellipse Height="{Binding CircleDiameter}" Width="{Binding CircleDiameter}"
                  Canvas.Top="{Binding CircleTopPositionInCanvas}"
                  Canvas.Left="{Binding CircleLeftPositionInCanvas}"
                  Stroke="Black"
