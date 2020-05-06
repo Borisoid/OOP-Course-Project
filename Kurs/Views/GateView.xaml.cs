@@ -24,9 +24,9 @@ namespace Kurs.Views
     {
         public GateView(GateViewModel gvm)
         {
-            InitializeComponent();
-
             gateViewModel = gvm;
+
+            InitializeComponent();
 
             HeightPerPin = Properties.AppSettings.Default.BaseGateViewHeightPerPin;
             RectWidth = Properties.AppSettings.Default.BaseGateViewWidth;
@@ -60,6 +60,7 @@ namespace Kurs.Views
                 _baseHeightPerPin = value;
                 OnPropertyChanged("HeightPerPin");
                 OnPropertyChanged("RectHeight");
+                OnPropertyChanged("halfPinHeightHeight");
             }
         }
         public int RectHeight
@@ -95,10 +96,26 @@ namespace Kurs.Views
                 OnPropertyChanged("PinWidth");
             }
         }
+        public int HalfPinHeight
+        {
+            get { return _baseHeightPerPin * _scaleFactor / 2; }
+        }
 
         public int _baseHeightPerPin;
         public int _baseRectWidth;
         public int _scaleFactor;
         public int _pinWidth;
+    }
+    public class MarginConverter : IValueConverter
+    {
+        public object Convert(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return new Thickness(0, System.Convert.ToInt32(value), 0, 0);
+        }
+
+        public object ConvertBack(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return null;
+        }
     }
 }

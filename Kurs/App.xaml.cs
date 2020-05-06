@@ -23,8 +23,8 @@ namespace Kurs
             //var vm = new PinViewModel(Pin);
             //var view = vm.PinView;
             //var w = new MainWindow(view);
-            bool[] ar = { true, false, false, false };
-            var g = new Gate("2AND", 2, ar);
+            bool[] ar = { true, false, false, false, true, true, true, true };
+            var g = new Gate("2AND", 3, ar);
             var gv = new GateViewModel(g);
             var w = new MainWindow(gv.gateView);
             w.Show();

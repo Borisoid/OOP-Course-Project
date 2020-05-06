@@ -7,15 +7,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400"
              x:Name="View">
-    <Grid Height="{Binding RectHeight, ElementName=View}"
-          Width="{Binding RectWidth, ElementName=View}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+    <UserControl.Resources>
+        <local:MarginConverter x:Key="marginConverter"></local:MarginConverter>
+    </UserControl.Resources>
+    <StackPanel Orientation="Horizontal">
+        
+        <ItemsControl x:Name="leftSide"
+                      ItemsSource="{Binding inputPins}"
+                      Height="{Binding RectHeight, ElementName=View}"
+                      Width="{Binding PinWidth, ElementName=View}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Height="{Binding HeightPerPin, ElementName=View}"
+                                Width="{Binding PinWidth, ElementName=View}">
+                        <local:PinView Margin="{Binding HalfPinHeight, ElementName=View, Converter={StaticResource marginConverter}}">
+                        </local:PinView>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
         <Canvas x:Name="canvas"
-                Grid.Column="1"
                 Height="{Binding RectHeight, ElementName=View}"
                 Width="{Binding RectWidth, ElementName=View}">
             <Rectangle x:Name="body"
@@ -26,7 +38,7 @@
                        Fill="LightGray"
                        Stroke="Black"
                        StrokeThickness="2">
-                       
+
             </Rectangle>
             <Grid x:Name="internalGrid"
                   Height="{Binding RectHeight, ElementName=View}"
@@ -41,27 +53,11 @@
             </Grid>
         </Canvas>
 
-        <ListView x:Name="leftSide"
-                  ItemsSource="{Binding inputPins}"
-                  Height="{Binding RectHeight, ElementName=View}"
-                  Width="{Binding PinWidth, ElementName=View}"
-                  Grid.Column="0"
-                  Focusable="False"
-                  Background="Transparent"
-                  BorderThickness="0"
-                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <local:PinView Height="{Binding HeightPerPin, ElementName=View}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Right"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Grid Grid.Column="2">
+        <Grid Width="{Binding PinWidth, ElementName=View}">
             <local:PinView VerticalAlignment="Center"
                            Type="Output"/>
         </Grid>
-    </Grid>
+        
+    </StackPanel>
+    
 </UserControl>
