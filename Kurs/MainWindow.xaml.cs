@@ -27,5 +27,10 @@ namespace Kurs
             InitializeComponent();
             wnd.Children.Add(pw);
         }
+        public MainWindow(GateView gv)
+        {
+            InitializeComponent();
+            wnd.Children.Add(gv);
+        }
     }
 }

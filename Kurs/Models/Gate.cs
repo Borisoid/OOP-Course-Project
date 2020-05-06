@@ -16,7 +16,9 @@ namespace Kurs.Models
 
             Name = name;
             InputsNumber = inputsNumber;
-            Function = function;
+
+            Function = new bool[function.Length];
+            function.CopyTo(Function, 0);
 
             OutputPin = new OutputPin(this);
             for (int i = 0; i < inputsNumber; i++)
@@ -64,15 +66,16 @@ namespace Kurs.Models
         /// </summary>
         public bool[] Function
         {
-            get { return Function; }
+            get { return _function; }
             set
             {
                 if (value.Length != InputVariationsNumber)
                     throw new ArgumentException("passed output-defining array doesn't assign an output value " +
                         "to all input variations (value.Length != OutputVariationsNumber)");
                 else
-                    Function = value;
+                    _function = value;
             }
         }
+        public bool[] _function;
     }
 }

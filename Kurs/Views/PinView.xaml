@@ -6,18 +6,19 @@
              xmlns:local="clr-namespace:Kurs.Views"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100"
-             Height="{Binding RectHeight}" Width="{Binding RectWidth}">
-    <Canvas Height="{Binding RectHeight}" Width="{Binding RectWidth}"
-            x:Name="canvas">
-        <Line X1="{Binding LineX1}" X2="{Binding LineX2}"
-              Canvas.Top="{Binding LineY}"
+             Name="View">
+    <Canvas x:Name="canvas">
+        <Line x:Name="line"
+              X1="{Binding LineX1, ElementName=View}" X2="{Binding LineX2, ElementName=View}"
+              Canvas.Top="{Binding LineY, ElementName=View}"
               Canvas.Left="0"
               Stroke="Black"
               StrokeThickness="2"
               IsHitTestVisible="False"/>
-        <Ellipse Height="{Binding CircleDiameter}" Width="{Binding CircleDiameter}"
-                 Canvas.Top="{Binding CircleTopPositionInCanvas}"
-                 Canvas.Left="{Binding CircleLeftPositionInCanvas}"
+        <Ellipse x:Name="ellipse"
+                 Height="{Binding CircleDiameter, ElementName=View}" Width="{Binding CircleDiameter, ElementName=View}"
+                 Canvas.Top="{Binding CircleTopPositionInCanvas, ElementName=View}"
+                 Canvas.Left="{Binding CircleLeftPositionInCanvas, ElementName=View}"
                  Stroke="Black"
                  StrokeThickness="2"/>
     </Canvas>

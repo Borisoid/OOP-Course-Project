@@ -19,10 +19,14 @@ namespace Kurs
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var Pin = new InputPin(null);
-            var vm = new PinViewModel(Pin);
-            var view = vm.PinView;
-            var w = new MainWindow(view);
+            //var Pin = new OutputPin(null);
+            //var vm = new PinViewModel(Pin);
+            //var view = vm.PinView;
+            //var w = new MainWindow(view);
+            bool[] ar = { true, false, false, false };
+            var g = new Gate("2AND", 2, ar);
+            var gv = new GateViewModel(g);
+            var w = new MainWindow(gv.gateView);
             w.Show();
         }
     }

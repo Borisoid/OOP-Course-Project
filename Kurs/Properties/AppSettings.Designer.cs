@@ -34,37 +34,37 @@ namespace Kurs.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("60")]
-        public int VisibleGateViewWidth {
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public int BaseGateViewWidth {
             get {
-                return ((int)(this["VisibleGateViewWidth"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
-        public int VisibleGateViewHeightPerPin {
-            get {
-                return ((int)(this["VisibleGateViewHeightPerPin"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("150")]
-        public int PinViewRectWidth {
-            get {
-                return ((int)(this["PinViewRectWidth"]));
+                return ((int)(this["BaseGateViewWidth"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public int PinViewRectHeight {
+        public int BaseGateViewHeightPerPin {
             get {
-                return ((int)(this["PinViewRectHeight"]));
+                return ((int)(this["BaseGateViewHeightPerPin"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int BasePinViewRectWidth {
+            get {
+                return ((int)(this["BasePinViewRectWidth"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int BasePinViewRectHeight {
+            get {
+                return ((int)(this["BasePinViewRectHeight"]));
             }
         }
     }
