@@ -23,10 +23,24 @@ namespace Kurs
             //var vm = new PinViewModel(Pin);
             //var view = vm.PinView;
             //var w = new MainWindow(view);
+
             bool[] ar = { true, false, false, false, true, true, true, true };
-            var g = new Gate("2AND", 3, ar);
+            var g = new Gate("3AND", 3, ar);
             var gv = new GateViewModel(g);
-            var w = new MainWindow(gv.gateView);
+
+            bool[] ar2 = { true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false };
+            var g2 = new Gate("5AND", 5, ar2);
+            var gv2 = new GateViewModel(g2);
+
+            var wa = new WorkAreaViewModel();
+            wa.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv2, 20, 30));
+            wa.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv, 150, 300));
+
+            var vm = new WorkAreaView();
+            vm.DataContext = wa;
+            //var w = new MainWindow(gv2.gateView);
+            var w = new MainWindow(vm);
+
             w.Show();
         }
     }

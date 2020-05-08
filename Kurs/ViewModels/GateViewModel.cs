@@ -29,8 +29,8 @@ namespace Kurs.ViewModels
 
             #endregion
 
-            gateView = new GateView(this);
-            gateView.DataContext = this;
+            //gateView = new GateView(this);
+            //gateView.DataContext = this;
 
             
         }

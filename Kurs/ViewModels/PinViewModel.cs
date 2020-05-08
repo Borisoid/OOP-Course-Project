@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel;
 
 using Kurs.Models;
 using Kurs.Views;
@@ -18,8 +19,16 @@ namespace Kurs.ViewModels
 
             PinView = new PinView((Pin is InputPin) ? PinView.PinType.Input : PinView.PinType.Output);
 
+            connectionViewMoedels = new BindingList<ConnectionViewMoedel>();
         }
         public readonly Pin Pin;
         public PinView PinView { get; private set; }
+        public BindingList<ConnectionViewMoedel> connectionViewMoedels;
+
+        public void AssignConnection(ConnectionViewMoedel cvm)
+        {
+            Pin.AssignConnection(cvm.connection);
+            connectionViewMoedels.Add(cvm);
+        }
     }
 }

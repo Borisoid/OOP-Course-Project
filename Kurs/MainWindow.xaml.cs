@@ -32,5 +32,10 @@ namespace Kurs
             InitializeComponent();
             wnd.Children.Add(gv);
         }
+        public MainWindow(WorkAreaView wa)
+        {
+            InitializeComponent();
+            wnd.Children.Add(wa);
+        }
     }
 }

@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Kurs.Views"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400"
-             x:Name="View">
+             x:Name="View"
+             Loaded="View_Loaded">
     <UserControl.Resources>
         <local:MarginConverter x:Key="marginConverter"></local:MarginConverter>
     </UserControl.Resources>
@@ -20,8 +21,7 @@
                 <DataTemplate>
                     <StackPanel Height="{Binding HeightPerPin, ElementName=View}"
                                 Width="{Binding PinWidth, ElementName=View}">
-                        <local:PinView Margin="{Binding HalfPinHeight, ElementName=View, Converter={StaticResource marginConverter}}">
-                        </local:PinView>
+                        <local:PinView Margin="{Binding OneThirdPinHeight, ElementName=View, Converter={StaticResource marginConverter}}"/>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -47,9 +47,10 @@
                   Canvas.Top="0"
                   Canvas.Left="0">
                 <Label x:Name="label"
-                   Content="{Binding Name}"
-                   HorizontalAlignment="Center"
-                   Margin="0,15,0,0"/>
+                       Content="{Binding Name}"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Margin="0,15,0,0"/>
             </Grid>
         </Canvas>
 

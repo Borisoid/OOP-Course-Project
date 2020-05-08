@@ -34,7 +34,7 @@ namespace Kurs.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
         public int BaseGateViewWidth {
             get {
                 return ((int)(this["BaseGateViewWidth"]));
@@ -43,7 +43,7 @@ namespace Kurs.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
         public int BaseGateViewHeightPerPin {
             get {
                 return ((int)(this["BaseGateViewHeightPerPin"]));
@@ -52,7 +52,7 @@ namespace Kurs.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
         public int BasePinViewRectWidth {
             get {
                 return ((int)(this["BasePinViewRectWidth"]));
@@ -61,7 +61,7 @@ namespace Kurs.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int BasePinViewRectHeight {
             get {
                 return ((int)(this["BasePinViewRectHeight"]));

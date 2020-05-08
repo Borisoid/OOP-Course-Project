@@ -22,10 +22,19 @@ namespace Kurs.Views
     /// </summary>
     public partial class GateView : UserControl, INotifyPropertyChanged
     {
-        public GateView(GateViewModel gvm)
-        {
-            gateViewModel = gvm;
+        //public GateView(GateViewModel gvm)
+        //{
+        //    gateViewModel = gvm;
 
+        //    InitializeComponent();
+
+        //    HeightPerPin = Properties.AppSettings.Default.BaseGateViewHeightPerPin;
+        //    RectWidth = Properties.AppSettings.Default.BaseGateViewWidth;
+        //    PinWidth = Properties.AppSettings.Default.BasePinViewRectWidth;
+        //    ScaleFactor = 1;
+        //}
+        public GateView()
+        {
             InitializeComponent();
 
             HeightPerPin = Properties.AppSettings.Default.BaseGateViewHeightPerPin;
@@ -50,7 +59,13 @@ namespace Kurs.Views
 
         public int InputsNumber
         {
-            get { return gateViewModel.InputsNumber; }
+            get
+            {
+                if (this.DataContext != null)
+                    return (this.DataContext as GateViewModel).InputsNumber;
+                else
+                    return 0;
+            }
         }
         public int HeightPerPin
         {
@@ -58,7 +73,7 @@ namespace Kurs.Views
             set
             {
                 _baseHeightPerPin = value;
-                OnPropertyChanged("HeightPerPin");
+                //OnPropertyChanged("HeightPerPin");
                 OnPropertyChanged("RectHeight");
                 OnPropertyChanged("halfPinHeightHeight");
             }
@@ -82,7 +97,7 @@ namespace Kurs.Views
             set
             {
                 _scaleFactor = value;
-                OnPropertyChanged("ScaleFactor");
+                //OnPropertyChanged("ScaleFactor");
                 OnPropertyChanged("RectHeight");
                 OnPropertyChanged("RectWidth");
             }
@@ -96,16 +111,27 @@ namespace Kurs.Views
                 OnPropertyChanged("PinWidth");
             }
         }
-        public int HalfPinHeight
+        public int OneThirdPinHeight
         {
-            get { return _baseHeightPerPin * _scaleFactor / 2; }
+            get { return _baseHeightPerPin * _scaleFactor / 3; }
         }
 
         public int _baseHeightPerPin;
         public int _baseRectWidth;
         public int _scaleFactor;
         public int _pinWidth;
+        public int _inputsNumber;
+
+        private void View_Loaded(object sender, RoutedEventArgs e)
+        {
+            //OnPropertyChanged("InputsNumber");
+            OnPropertyChanged("RectHeight");
+        }
     }
+
+    /// <summary>
+    /// Converts value into margin-top (0, value, 0, 0).
+    /// </summary>
     public class MarginConverter : IValueConverter
     {
         public object Convert(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
