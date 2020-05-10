@@ -22,6 +22,8 @@ namespace Kurs.Views
     /// </summary>
     public partial class GateView : UserControl, INotifyPropertyChanged
     {
+        #region Constructors
+
         //public GateView(GateViewModel gvm)
         //{
         //    gateViewModel = gvm;
@@ -43,19 +45,9 @@ namespace Kurs.Views
             ScaleFactor = 1;
         }
 
-        public GateViewModel gateViewModel;
+        #endregion
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+        #region Properties
 
         public int InputsNumber
         {
@@ -116,18 +108,46 @@ namespace Kurs.Views
             get { return _baseHeightPerPin * _scaleFactor / 3; }
         }
 
-        public int _baseHeightPerPin;
-        public int _baseRectWidth;
-        public int _scaleFactor;
-        public int _pinWidth;
-        public int _inputsNumber;
+        #endregion
+
+        #region Events
 
         private void View_Loaded(object sender, RoutedEventArgs e)
         {
             //OnPropertyChanged("InputsNumber");
             OnPropertyChanged("RectHeight");
         }
+
+        #endregion
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+
+        #region Data
+
+        public GateViewModel gateViewModel;
+        public int _baseHeightPerPin;
+        public int _baseRectWidth;
+        public int _scaleFactor;
+        public int _pinWidth;
+        public int _inputsNumber;
+
+        #endregion
     }
+
+    #region ValueConverter
 
     /// <summary>
     /// Converts value into margin-top (0, value, 0, 0).
@@ -144,4 +164,6 @@ namespace Kurs.Views
             return null;
         }
     }
+
+    #endregion
 }

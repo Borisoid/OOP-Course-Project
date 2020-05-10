@@ -1,15 +1,18 @@
-﻿using System;
+﻿using Kurs.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Text;
 
 namespace Kurs.ViewModels
 {
-    public class WorkAreaViewModel
+    public class WorkAreaViewModel : ViewModelBase
     {
         public WorkAreaViewModel()
         {
             GateList = new BindingList<GateViewModelWithCoordinates>();
+            ConnectionList = new BindingList<ConnectionViewModel>();
         }
 
         public class GateViewModelWithCoordinates
@@ -27,5 +30,6 @@ namespace Kurs.ViewModels
         }
 
         public BindingList<GateViewModelWithCoordinates> GateList { get; set; }
+        public BindingList<ConnectionViewModel> ConnectionList { get; set; }
     }
 }

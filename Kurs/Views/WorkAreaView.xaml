@@ -8,25 +8,39 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer HorizontalScrollBarVisibility="Visible"
                   VerticalScrollBarVisibility="Visible">
+        
         <Canvas Height="1000" Width="1000">
+            
             <ItemsControl ItemsSource="{Binding GateList}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
+                
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
                         <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
                         <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
+                
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:GateView DataContext="{Binding gateViewModel}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+
+            <ItemsControl ItemsSource="{Binding ConnectionList}" Name="connections">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:ConnectionView />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            
         </Canvas>
+        
     </ScrollViewer>
 </UserControl>

@@ -10,8 +10,8 @@ namespace Kurs.ViewModels
 {
     public class GateViewModel : ViewModelBase
     {
-        public readonly Gate gate;
-        public readonly GateView gateView;
+        #region Constructors
+
         public GateViewModel(Gate g)
         {
             if (g == null)
@@ -31,9 +31,11 @@ namespace Kurs.ViewModels
 
             //gateView = new GateView(this);
             //gateView.DataContext = this;
-
-            
         }
+
+        #endregion
+
+        #region Properties
 
         public BindingList<PinViewModel> inputPins { get; set; }
         public PinViewModel outputPin { get; set; }
@@ -47,8 +49,13 @@ namespace Kurs.ViewModels
             get { return gate.InputsNumber; }
         }
 
+        #endregion
 
-        
+        #region Data
 
+        public readonly Gate gate;
+        public readonly GateView gateView;
+
+        #endregion
     }
 }

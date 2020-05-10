@@ -33,8 +33,9 @@ namespace Kurs
             var gv2 = new GateViewModel(g2);
 
             var wa = new WorkAreaViewModel();
-            wa.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv2, 20, 30));
-            wa.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv, 150, 300));
+            
+
+            
 
             var vm = new WorkAreaView();
             vm.DataContext = wa;
@@ -42,6 +43,12 @@ namespace Kurs
             var w = new MainWindow(vm);
 
             w.Show();
+
+            wa.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv2, 20, 30));
+            wa.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv, 150, 300));
+
+            var con = new ConnectionViewModel(gv.inputPins[1], gv2.outputPin);
+            wa.ConnectionList.Add(con);
         }
     }
 }
