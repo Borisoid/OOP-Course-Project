@@ -8,6 +8,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid x:Name="wnd">
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <local:ItemPicker Grid.Column="0"
+                          x:Name="itemPick"/>
+        <local:WorkAreaView x:Name="workArea" Grid.Column="1"/>
+        <Button Height="50"
+                Width="200"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Click="Button_Click"/>
     </Grid>
 </Window>

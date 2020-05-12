@@ -24,31 +24,28 @@ namespace Kurs
             //var view = vm.PinView;
             //var w = new MainWindow(view);
 
-            bool[] ar = { true, false, false, false, true, true, true, true };
-            var g = new Gate("3AND", 3, ar);
-            var gv = new GateViewModel(g);
+            //bool[] ar = { true, false, false, false, true, true, true, true };
+            //var g = new Gate("3AND", 3, ar);
+            //var gv = new GateViewModel(g);
 
-            bool[] ar2 = { true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false };
-            var g2 = new Gate("5AND", 5, ar2);
-            var gv2 = new GateViewModel(g2);
+            //bool[] ar2 = { true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false };
+            //var g2 = new Gate("5AND", 5, ar2);
+            //var gv2 = new GateViewModel(g2);
 
-            var wa = new WorkAreaViewModel();
-            
+            //var vm = new WorkAreaView();
+            //var wa = new WorkAreaViewModel(vm);
 
-            
 
-            var vm = new WorkAreaView();
-            vm.DataContext = wa;
-            //var w = new MainWindow(gv2.gateView);
-            var w = new MainWindow(vm);
+            ////var w = new MainWindow(gv2.gateView);
+            var w = new MainWindow();
+            w.itemPick.DataContext = new ItemsPickerViewModel();
 
             w.Show();
 
-            wa.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv2, 20, 30));
-            wa.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv, 150, 300));
+            //wa.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv2, 20, 30));
+            //wa.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv, 150, 300));
 
-            var con = new ConnectionViewModel(gv.inputPins[1], gv2.outputPin);
-            wa.ConnectionList.Add(con);
+
         }
     }
 }

@@ -9,7 +9,8 @@
     <ScrollViewer HorizontalScrollBarVisibility="Visible"
                   VerticalScrollBarVisibility="Visible">
         
-        <Canvas Height="1000" Width="1000">
+        <Canvas Height="1000" Width="1000"
+                Name="canvas">
             
             <ItemsControl ItemsSource="{Binding GateList}">
                 <ItemsControl.ItemsPanel>
@@ -32,10 +33,19 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <ItemsControl ItemsSource="{Binding ConnectionList}" Name="connections">
+            <ItemsControl ItemsSource="{Binding ConnectionList}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:ConnectionView />
+                        <local:ConnectionView X1="{Binding X1}"
+                                              X2="{Binding X2}"
+                                              Y1="{Binding Y1}"
+                                              Y2="{Binding Y2}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

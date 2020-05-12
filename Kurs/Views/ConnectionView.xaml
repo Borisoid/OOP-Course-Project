@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Kurs.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Name="View">
+             Name="View"
+             Loaded="View_Loaded">
     <Canvas>
         <Polyline IsHitTestVisible="True"
                   Points="{Binding Points, ElementName=View}"
