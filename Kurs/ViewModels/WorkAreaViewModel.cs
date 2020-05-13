@@ -91,10 +91,9 @@ namespace Kurs.ViewModels
         {
             #region Constructors
 
-            public ConnectionViewModelWithCoordinates(ConnectionViewModel con, WorkAreaView view)
+            public ConnectionViewModelWithCoordinates(ConnectionViewModel con)
             {
                 connectionViewModel = con;
-                View = view;
 
                 RecalcCoordinates();
             }
@@ -112,7 +111,11 @@ namespace Kurs.ViewModels
                     ConnectionPointInPin.Y = Pin1.ConnectionPointY;
 
                     //WorkArea "Canvas"
-                    DependencyObject container = View.canvas;
+                    DependencyObject container = Pin1;
+                    while(container.GetType() != typeof(Canvas))
+                    {
+                        container = VisualTreeHelper.GetParent(container);
+                    }
                     System.Windows.Point relativeLocation = Pin1.TranslatePoint(ConnectionPointInPin, container as UIElement);
 
                     X1 = relativeLocation.X;
@@ -125,7 +128,11 @@ namespace Kurs.ViewModels
                     ConnectionPointInPin.Y = Pin2.ConnectionPointY;
 
                     //WorkArea "Canvas"
-                    DependencyObject container = View.canvas;
+                    DependencyObject container = Pin2;
+                    while (container.GetType() != typeof(Canvas))
+                    {
+                        container = VisualTreeHelper.GetParent(container);
+                    }
                     System.Windows.Point relativeLocation = Pin2.TranslatePoint(ConnectionPointInPin, container as UIElement);
 
                     X2 = relativeLocation.X;

@@ -19,10 +19,16 @@ namespace Kurs.ViewModels
 
             Pin = pin;
 
-            PinView = new PinView((Pin is InputPin) ? PinView.PinType.Input : PinView.PinType.Output);
+            //PinView = new PinView((Pin is InputPin) ? PinView.PinType.Input : PinView.PinType.Output);
 
             connectionViewMoedels = new BindingList<ConnectionViewModel>();
         }
+
+        #endregion
+
+        #region Properties
+
+        public PinView PinView { get; set; }
 
         #endregion
 
@@ -39,7 +45,7 @@ namespace Kurs.ViewModels
         #region Data
 
         public readonly Pin Pin;
-        public readonly PinView PinView;
+        public PinView _pinView;
         public BindingList<ConnectionViewModel> connectionViewMoedels;
 
         #endregion

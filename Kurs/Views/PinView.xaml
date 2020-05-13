@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Kurs.Views"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100"
-             Name="View">
+             Name="View"
+             Loaded="View_Loaded">
     <Canvas x:Name="canvas">
         <Line x:Name="line"
               X1="{Binding LineX1, ElementName=View}" X2="{Binding LineX2, ElementName=View}"

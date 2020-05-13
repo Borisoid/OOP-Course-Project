@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 
 using System.ComponentModel;
 using Kurs.Models;
+using Kurs.ViewModels;
 
 namespace Kurs.Views
 {
@@ -24,6 +25,8 @@ namespace Kurs.Views
         public PinView(PinType type)
         {
             InitializeComponent();
+
+            //This = this;
 
             _type = type;
             RectHeight = Properties.AppSettings.Default.BasePinViewRectHeight;
@@ -50,6 +53,8 @@ namespace Kurs.Views
         public PinView()
         {
             InitializeComponent();
+
+            //This = this;
 
             RectHeight = Properties.AppSettings.Default.BasePinViewRectHeight;
             RectWidth = Properties.AppSettings.Default.BasePinViewRectWidth;
@@ -134,6 +139,21 @@ namespace Kurs.Views
 
         #endregion
 
+        #region DependencyProperties
+
+        //private static DependencyProperty ThisProperty;
+        //static PinView()
+        //{
+        //    ThisProperty = DependencyProperty.Register("This", typeof(PinView), typeof(PinView));
+        //}
+        //public PinView This
+        //{
+        //    get { return (PinView)GetValue(ThisProperty); }
+        //    set { SetValue(ThisProperty, value); }
+        //}
+
+        #endregion
+
         #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -181,5 +201,11 @@ namespace Kurs.Views
 
         #endregion
 
+        private void View_Loaded(object sender, RoutedEventArgs e)
+        {
+            PinViewModel th = this.DataContext as PinViewModel;
+            if (th != null)
+                th.PinView = this;
+        }
     }
 }

@@ -56,7 +56,7 @@ namespace Kurs
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var con = new ConnectionViewModel(wavm.GateList[1].gateViewModel.inputPins[1], wavm.GateList[0].gateViewModel.outputPin);
-            wavm.ConnectionList.Add(new WorkAreaViewModel.ConnectionViewModelWithCoordinates(con, wavm.View));
+            wavm.ConnectionList.Add(new WorkAreaViewModel.ConnectionViewModelWithCoordinates(con));
         }
     }
 }

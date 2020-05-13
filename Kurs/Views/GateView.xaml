@@ -56,7 +56,8 @@
 
         <Grid Width="{Binding PinWidth, ElementName=View}">
             <local:PinView VerticalAlignment="Center"
-                           Type="Output"/>
+                           Type="Output"
+                           DataContext="{Binding outputPin}"/>
         </Grid>
         
     </StackPanel>
