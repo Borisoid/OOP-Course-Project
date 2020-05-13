@@ -14,10 +14,8 @@ namespace Kurs.ViewModels
     {
         #region Constructors
 
-        public WorkAreaViewModel(WorkAreaView view)
+        public WorkAreaViewModel()
         {
-            View = view;
-            View.DataContext = this;
 
             GateList = new BindingList<GateViewModelWithCoordinates>();
             ConnectionList = new BindingList<ConnectionViewModelWithCoordinates>();
@@ -214,27 +212,9 @@ namespace Kurs.ViewModels
 
         #region Data
 
-        public WorkAreaView View;
         public BindingList<GateViewModelWithCoordinates> GateList { get; set; }
         public BindingList<ConnectionViewModelWithCoordinates> ConnectionList { get; set; }
 
         #endregion
     }
 }
-
-
-/*PinView Pin1 = connectionViewModel.PinView1;
-                    System.Windows.Point ConnectionPointInPin = new System.Windows.Point();
-                    ConnectionPointInPin.X = Pin1.ConnectionPointX;
-                    ConnectionPointInPin.Y = Pin1.ConnectionPointY;
-
-                    //WorkArea "Canvas"
-                    DependencyObject container = Pin1;
-                    while (container.GetType() != typeof(Canvas))
-                    {
-                        container = VisualTreeHelper.GetParent(container);
-                    }
-                    System.Windows.Point relativeLocation = Pin1.TranslatePoint(ConnectionPointInPin, container as UIElement);
-                    MessageBox.Show(relativeLocation.ToString());
-
-                    return relativeLocation;*/

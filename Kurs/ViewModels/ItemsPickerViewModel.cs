@@ -204,6 +204,9 @@ namespace Kurs.ViewModels
                 cc.Checked = false;
             }
 
+            if (String.IsNullOrEmpty(SearchString))
+                return;
+
             FilteredGates.Clear();
 
             Regex regex = new Regex(SearchString.ToUpper());

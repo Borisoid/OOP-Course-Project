@@ -6,51 +6,55 @@
              xmlns:local="clr-namespace:Kurs.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer HorizontalScrollBarVisibility="Visible"
-                  VerticalScrollBarVisibility="Visible">
+    <Border Background="GhostWhite"
+            BorderBrush="Gainsboro"
+            BorderThickness="1">
+        <ScrollViewer HorizontalScrollBarVisibility="Visible"
+                      VerticalScrollBarVisibility="Visible">
         
-        <Canvas Height="1000" Width="1000"
-                Name="canvas">
+            <Canvas Height="1000" Width="1000"
+                    Name="canvas">
             
-            <ItemsControl ItemsSource="{Binding GateList}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                <ItemsControl ItemsSource="{Binding GateList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                 
-                <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
-                        <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
+                            <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
                 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <local:GateView DataContext="{Binding gateViewModel}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:GateView DataContext="{Binding gateViewModel}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-            <ItemsControl ItemsSource="{Binding ConnectionList}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                <ItemsControl ItemsSource="{Binding ConnectionList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <local:ConnectionView X1="{Binding X1}"
-                                              X2="{Binding X2}"
-                                              Y1="{Binding Y1}"
-                                              Y2="{Binding Y2}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ConnectionView X1="{Binding X1}"
+                                                  X2="{Binding X2}"
+                                                  Y1="{Binding Y1}"
+                                                  Y2="{Binding Y2}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             
-        </Canvas>
+            </Canvas>
         
-    </ScrollViewer>
+        </ScrollViewer>
+    </Border>
 </UserControl>

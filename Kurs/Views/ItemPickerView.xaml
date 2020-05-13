@@ -9,7 +9,8 @@
              d:DesignHeight="800" d:DesignWidth="400">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"
+                           MinHeight="250"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         
@@ -18,29 +19,33 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"
                                MinHeight="48"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"
+                               MinHeight="140"/>
             </Grid.RowDefinitions>
 
             <Border Background="GhostWhite"
                             BorderBrush="Gainsboro"
                             BorderThickness="1">
-                <Grid Grid.Row="0">
-                    <TextBox Margin="10,10,60,10"
-                             Height="25"
-                             Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Button Margin="10"
-                            Height="25"
-                            Width="40"
-                            HorizontalAlignment="Right"
-                            Command="{Binding SearchCommand}"/>
-                </Grid>
+                <StackPanel>
+                    <Label Content="Search" HorizontalAlignment="Center"/>
+                    <Grid Grid.Row="0">
+                        <TextBox Margin="10,1,60,10"
+                                 Height="22"
+                                 FontSize="14"
+                                 Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Margin="0,1,10,10"
+                                Height="22"
+                                Width="40"
+                                HorizontalAlignment="Right"
+                                Command="{Binding SearchCommand}"/>
+                    </Grid>
+                </StackPanel>
             </Border>
 
             <Border Background="GhostWhite"
                     BorderBrush="Gainsboro"
                     BorderThickness="1"
-                    Grid.Row="1"
-                    MinHeight="90">
+                    Grid.Row="1">
                 <ScrollViewer>
                     <ItemsControl ItemsSource="{Binding Categories}">
                         <ItemsControl.ItemsPanel>
@@ -52,12 +57,13 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Background="GhostWhite"
-                                        BorderBrush="Gainsboro"
-                                        BorderThickness="1">
+                                            BorderBrush="Gainsboro"
+                                            BorderThickness="1"
+                                            Margin="3">
                                     <StackPanel Orientation="Horizontal">
                                         <CheckBox Margin="5"
-                                                  IsChecked="{Binding Checked}"
-                                                  Content="{Binding Category}"/>
+                                                      IsChecked="{Binding Checked}"
+                                                      Content="{Binding Category}"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
@@ -84,8 +90,9 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Background="GhostWhite"
-                                BorderBrush="Gainsboro"
-                                BorderThickness="1">
+                                    BorderBrush="Gainsboro"
+                                    BorderThickness="1"
+                                    Margin="3">
                                 <local:GateView Margin="5"
                                             IsHitTestVisible="False"/>
                             </Border>

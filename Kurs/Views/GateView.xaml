@@ -50,7 +50,7 @@
                        Content="{Binding Name}"
                        FontWeight="Bold"
                        HorizontalAlignment="Center"
-                       Margin="0,15,0,0"/>
+                       Margin="0,2,0,0"/>
             </Grid>
         </Canvas>
 

@@ -6,19 +6,34 @@
         xmlns:local="clr-namespace:Kurs.Views"
         xmlns:vm="clr-namespace:Kurs.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        MinHeight="450" MinWidth="450">
     <Grid x:Name="wnd">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.1*"
+                              MinWidth="128"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0"
+              Grid.ColumnSpan="2">
+            
+        </Menu>
         <local:ItemPicker Grid.Column="0"
+                          Grid.Row="1"
+                          DataContext="{Binding itemsPicker}"
                           x:Name="itemPick"/>
-        <local:WorkAreaView x:Name="workArea" Grid.Column="1"/>
-        <Button Height="50"
-                Width="200"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Left"
-                Click="Button_Click"/>
+        <local:WorkAreaView Grid.Column="1"
+                            Grid.Row="1"
+                            DataContext="{Binding workArea}"
+                            x:Name="workArea"/>
+        <StatusBar Grid.Row="2"
+                   Grid.ColumnSpan="2">
+            
+        </StatusBar>
     </Grid>
 </Window>
