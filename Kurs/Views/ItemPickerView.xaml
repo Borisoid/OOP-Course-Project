@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Kurs.Views"
+             xmlns:com="clr-namespace:Kurs.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="400">
     <Grid>
@@ -25,11 +26,13 @@
                             BorderThickness="1">
                 <Grid Grid.Row="0">
                     <TextBox Margin="10,10,60,10"
-                             Height="25" />
+                             Height="25"
+                             Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}"/>
                     <Button Margin="10"
                             Height="25"
                             Width="40"
-                            HorizontalAlignment="Right"/>
+                            HorizontalAlignment="Right"
+                            Command="{Binding SearchCommand}"/>
                 </Grid>
             </Border>
 

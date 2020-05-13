@@ -43,7 +43,7 @@ namespace Kurs.DataBase
 		                    InputsNumber,
 		                    Function
 	                      FROM view_CategoryDivision where CategoryName = " + $"\'{category}\'";
-                    //if current item isn't last add 'UNION'
+                    //if current item isn't last add 'INTERSECT'
                     if (Categories.IndexOf(category) != Categories.Count - 1)
                         q += "\nINTERSECT\n";
                 }

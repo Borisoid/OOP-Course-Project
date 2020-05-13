@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using System.Data.SQLite;
+using System.Windows;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Windows.Input;
+using System.Text.RegularExpressions;
 
 using Kurs.DataBase;
 using Kurs.Models;
 using Kurs.ViewModels;
 using Kurs.Views;
-using System.Windows;
-using System.Data.SqlClient;
-using System.Linq;
+using Kurs.Commands;
 
 namespace Kurs.ViewModels
 {
@@ -54,6 +57,8 @@ namespace Kurs.ViewModels
 
         #endregion
 
+        #region Connection
+
         SQLiteConnection SQLiteCon
         {
             get
@@ -72,6 +77,8 @@ namespace Kurs.ViewModels
             }
         }
         SQLiteConnection _con;
+
+        #endregion
 
         #region Nested Calsses
 
@@ -111,9 +118,23 @@ namespace Kurs.ViewModels
 
         public BindingList<CheckedCategory> Categories { get; set; }
         public BindingList<GateViewModel> FilteredGates { get; set; }
+        public string SearchString
+        {
+            get { return _searchString; }
+            set
+            {
+                _searchString = value;
+                OnPropertyChanged("SearchString");
+            }
+        }
 
         #endregion
 
+        #region Data
+
+        public string _searchString;
+
+        #endregion
 
 
         #region Methods
@@ -121,6 +142,7 @@ namespace Kurs.ViewModels
         public void FilterGates(object sender, ListChangedEventArgs e)
         {
             FilteredGates.Clear();
+
 
             QueryBilder qb = new QueryBilder();
             foreach (CheckedCategory cc in Categories)
@@ -154,6 +176,68 @@ namespace Kurs.ViewModels
                 FilteredGates.Add(gvm);
             }
         }
+
+        #endregion
+
+        #region Commands
+
+        #region Search
+
+        private DelegateCommand searchCommand;
+
+        public ICommand SearchCommand
+        {
+            get
+            {
+                if (searchCommand == null)
+                {
+                    searchCommand = new DelegateCommand(Search);
+                }
+                return searchCommand;
+            }
+        }
+
+        private void Search()
+        {
+            foreach(CheckedCategory cc in Categories)
+            {
+                cc.Checked = false;
+            }
+
+            FilteredGates.Clear();
+
+            Regex regex = new Regex(SearchString.ToUpper());
+
+            SQLiteCommand com = new SQLiteCommand(SQLiteCon);
+            com.CommandText = "SELECT * FROM view_Gates";
+            SQLiteDataReader r = com.ExecuteReader();
+            while(r.Read())
+            {
+                string Name = r.GetString(0);
+                if(regex.IsMatch(Name))
+                {
+                    int InputsNumber = r.GetInt32(1);
+                    string function = r.GetString(2);
+
+                    #region Converting string of 0's and 1's into bool array
+
+                    function.Reverse();
+                    bool[] func = new bool[function.Length];
+                    for (int i = 0; i < function.Length; i++)
+                    {
+                        func[i] = function[i] == 1;
+                    }
+
+                    #endregion
+
+                    FilteredGates.Add(new GateViewModel(new Gate(Name, InputsNumber, func)));
+                }
+            }
+        }
+
+        #endregion
+
+
 
         #endregion
     }
