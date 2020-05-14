@@ -17,7 +17,7 @@ using Kurs.Commands;
 
 namespace Kurs.ViewModels
 {
-    class ItemsPickerViewModel : ViewModelBase
+    public class ItemsPickerViewModel : ViewModelBase
     {
         #region Constructors
 
@@ -240,6 +240,40 @@ namespace Kurs.ViewModels
 
         #endregion
 
+
+        private DelegateCommand<GateViewModel> selectCommand;
+
+        public ICommand SelectCommand
+        {
+            get
+            {
+                if (selectCommand == null)
+                {
+                    selectCommand = new DelegateCommand<GateViewModel>(Select);
+                }
+                return selectCommand;
+            }
+        }
+
+        private void Select(GateViewModel gvm)
+        {
+            SelectedGateViewModel = gvm;
+        }
+
+        public GateViewModel SelectedGateViewModel
+        {
+            get { return _selectedGateViewModel; }
+            set
+            {
+                if(_selectedGateViewModel != null)
+                    _selectedGateViewModel.Selected = false;    //old
+                _selectedGateViewModel = value;                 //new
+                _selectedGateViewModel.Selected = true;
+
+                //MessageBox.Show(_selectedGateViewModel.Name);
+            }
+        }
+        public GateViewModel _selectedGateViewModel;
 
 
         #endregion

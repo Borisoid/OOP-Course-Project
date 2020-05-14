@@ -23,5 +23,21 @@ namespace Kurs.Views
         {
             InitializeComponent();
         }
+        private void canvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            PointingTo = e.GetPosition(canvas);
+        }
+
+
+        private static DependencyProperty PointingToProperty;
+        static WorkAreaView()
+        {
+            PointingToProperty = DependencyProperty.Register("PointingTo", typeof(Point), typeof(WorkAreaView));
+        }
+        public Point PointingTo
+        {
+            get { return (Point)GetValue(PointingToProperty); }
+            set { SetValue(PointingToProperty, value); }
+        }
     }
 }

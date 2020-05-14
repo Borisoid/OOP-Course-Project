@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Kurs.Views"
+             xmlns:i ="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="view">
     <Border Background="GhostWhite"
             BorderBrush="Gainsboro"
             BorderThickness="1">
@@ -13,8 +15,18 @@
                       VerticalScrollBarVisibility="Visible">
         
             <Canvas Height="1000" Width="1000"
-                    Name="canvas">
-            
+                    Name="canvas"
+                    PreviewMouseLeftButtonDown="canvas_PreviewMouseLeftButtonDown">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding placeCommand}"
+                                               CommandParameter="{Binding ElementName=view, Path=PointingTo}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Rectangle Height="1000"
+                           Width="1000"
+                           Opacity="0"
+                           Fill="White"/>
                 <ItemsControl ItemsSource="{Binding GateList}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>

@@ -8,7 +8,7 @@ using Kurs.Views;
 
 namespace Kurs.ViewModels
 {
-    public class GateViewModel : ViewModelBase
+    public class GateViewModel : ViewModelBase, ICloneable
     {
         #region Constructors
 
@@ -29,8 +29,6 @@ namespace Kurs.ViewModels
 
             #endregion
 
-            //gateView = new GateView(this);
-            //gateView.DataContext = this;
         }
 
         #endregion
@@ -49,12 +47,34 @@ namespace Kurs.ViewModels
             get { return gate.InputsNumber; }
         }
 
+        public bool Selected
+        {
+            get { return _selected; }
+            set
+            {
+                _selected = value;
+                OnPropertyChanged("Selected");
+            }
+        }
+
+        #endregion
+
+        #region IClonnable
+
+        public object Clone()
+        {
+            Gate copyGate = new Gate(gate.Name, gate.InputsNumber, gate.Function);
+            GateViewModel copy = new GateViewModel(copyGate);
+
+            return copy;
+        }
+
         #endregion
 
         #region Data
 
         public readonly Gate gate;
-        public readonly GateView gateView;
+        public bool _selected;
 
         #endregion
     }

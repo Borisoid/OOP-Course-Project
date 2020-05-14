@@ -7,6 +7,9 @@ using System.Text;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.Windows.Input;
+
+using Kurs.Commands;
 
 namespace Kurs.ViewModels
 {
@@ -216,5 +219,33 @@ namespace Kurs.ViewModels
         public BindingList<ConnectionViewModelWithCoordinates> ConnectionList { get; set; }
 
         #endregion
+
+        #region Commands
+
+        private DelegateCommand<System.Windows.Point> PlaceCommand;
+
+        public ICommand placeCommand
+        {
+            get
+            {
+                if (PlaceCommand == null)
+                {
+                    PlaceCommand = new DelegateCommand<System.Windows.Point>(Place);
+                }
+                return PlaceCommand;
+            }
+        }
+
+        private void Place(System.Windows.Point p)
+        {
+            if (itemsPicker.SelectedGateViewModel != null)
+                GateList.Add(new GateViewModelWithCoordinates((GateViewModel)itemsPicker.SelectedGateViewModel.Clone(), (int)p.X, (int)p.Y));
+        }
+
+        #endregion
+
+
+
+        public ItemsPickerViewModel itemsPicker;
     }
 }

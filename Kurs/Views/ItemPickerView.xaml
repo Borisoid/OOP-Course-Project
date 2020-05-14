@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Kurs.Views"
              xmlns:com="clr-namespace:Kurs.ViewModels"
+             xmlns:i ="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="400">
+             d:DesignHeight="800" d:DesignWidth="400"
+             Name="itemPicker">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"
@@ -32,7 +34,8 @@
                         <TextBox Margin="10,1,60,10"
                                  Height="22"
                                  FontSize="14"
-                                 Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}"/>
+                                 Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}">
+                        </TextBox>
                         <Button Margin="0,1,10,10"
                                 Height="22"
                                 Width="40"
@@ -79,8 +82,7 @@
                 BorderThickness="1"
                 Grid.Row="1">
             <ScrollViewer>
-                <ItemsControl 
-                          ItemsSource="{Binding FilteredGates}">
+                <ItemsControl ItemsSource="{Binding FilteredGates}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel/>
@@ -93,8 +95,13 @@
                                     BorderBrush="Gainsboro"
                                     BorderThickness="1"
                                     Margin="3">
-                                <local:GateView Margin="5"
-                                            IsHitTestVisible="False"/>
+                                <local:GateView Margin="5"/>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.SelectCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                                               CommandParameter="{Binding}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

@@ -60,6 +60,7 @@ namespace Kurs.Models
             }
         }
 
+
         /// <summary>
         /// Represents bool function coresponding to the Gate.
         /// Function[m] - value of the output having inputs recieve m in binary.
