@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Kurs.Views"
+             xmlns:i ="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100"
              Name="View"
@@ -21,6 +22,14 @@
                  Canvas.Top="{Binding CircleTopPositionInCanvas, ElementName=View}"
                  Canvas.Left="{Binding CircleLeftPositionInCanvas, ElementName=View}"
                  Stroke="Black"
-                 StrokeThickness="2"/>
+                 StrokeThickness="2"
+                 Fill="White"
+                 Opacity="10">
+            <i:Interaction.Triggers>
+                <local:HandlingEventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding selectCommand}"/>
+                </local:HandlingEventTrigger>
+            </i:Interaction.Triggers>
+        </Ellipse>
     </Canvas>
 </UserControl>

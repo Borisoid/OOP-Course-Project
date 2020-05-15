@@ -95,7 +95,8 @@
                                     BorderBrush="Gainsboro"
                                     BorderThickness="1"
                                     Margin="3">
-                                <local:GateView Margin="5"/>
+                                <local:GateView Margin="5"
+                                                IsHitTestVisible="False"/>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseLeftButtonDown">
                                         <i:InvokeCommandAction Command="{Binding DataContext.SelectCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"

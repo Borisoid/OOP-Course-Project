@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
+using System.Windows.Input;
 
 using Kurs.Models;
 using Kurs.Views;
+using Kurs.Commands;
 
 namespace Kurs.ViewModels
 {
@@ -28,7 +30,16 @@ namespace Kurs.ViewModels
 
         #region Properties
 
-        public PinView PinView { get; set; }
+        public PinView PinView { get; set; }    //IT IS USED
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                _isSelected = value;
+                OnPropertyChanged("IsSelected");
+            }
+        }
 
         #endregion
 
@@ -45,8 +56,31 @@ namespace Kurs.ViewModels
         #region Data
 
         public readonly Pin Pin;
-        public PinView _pinView;
+        public PinView _pinView;    //IT IS USED
         public BindingList<ConnectionViewModel> connectionViewMoedels;
+        public bool _isSelected;
+
+        #endregion
+
+        #region Commands
+
+        private DelegateCommand SelectCommand;
+
+        public ICommand selectCommand
+        {
+            get
+            {
+                if (SelectCommand == null)
+                {
+                    SelectCommand = new DelegateCommand(Select);
+                }
+                return SelectCommand;
+            }
+        }
+        public void Select()
+        {
+            IsSelected = true;
+        }
 
         #endregion
     }

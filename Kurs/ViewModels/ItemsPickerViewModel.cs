@@ -268,7 +268,8 @@ namespace Kurs.ViewModels
                 if(_selectedGateViewModel != null)
                     _selectedGateViewModel.Selected = false;    //old
                 _selectedGateViewModel = value;                 //new
-                _selectedGateViewModel.Selected = true;
+                if (_selectedGateViewModel != null)
+                    _selectedGateViewModel.Selected = true;
 
                 //MessageBox.Show(_selectedGateViewModel.Name);
             }
