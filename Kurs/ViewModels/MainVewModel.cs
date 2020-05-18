@@ -63,10 +63,43 @@ namespace Kurs.ViewModels
             foreach (WorkAreaViewModel.GateViewModelWithCoordinates g in workArea.GateList)
             {
                 if (g.gateViewModel.Name == "READER")
-                    MessageBox.Show(g.gateViewModel.gate.OutputValue.ToString());
+                {
+                    if (!LookForCycle(g.gateViewModel.gate, new List<IHavePins>()))
+                        MessageBox.Show(g.gateViewModel.gate.OutputValue.ToString());
+                    else
+                        MessageBox.Show("there's a cycle bitch");
+                }
             }
         }
 
         #endregion
+
+        /// <summary>
+        /// Returns true if graph has cycle.
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public bool LookForCycle(IHavePins g, List<IHavePins> list)
+        {
+            List<IHavePins> Marked = new List<IHavePins>(list);
+
+            foreach (IHavePins ihp in Marked)
+                if (Object.ReferenceEquals(g, ihp))
+                    return true;
+
+            Marked.Add(g);
+                
+            foreach(InputPin ip in g.InputPins)
+            {
+                foreach(Connection c in ip.Connections)
+                {
+                    if (LookForCycle(c.OutputPin.Owner, Marked))
+                        return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
