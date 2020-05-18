@@ -46,6 +46,11 @@ namespace Kurs.Views
             ScaleFactor = 1;
         }
 
+        static GateView()
+        {
+            ShowBottomLabelsProperty = DependencyProperty.Register("ShowBottomLabels", typeof(bool), typeof(GateView));
+        }
+
         #endregion
 
         //private static DependencyProperty SelectedProperty;
@@ -137,8 +142,31 @@ namespace Kurs.Views
         {
             get { return _baseHeightPerPin * _scaleFactor / 3; }
         }
+        public int BottomLabelHeight
+        {
+            get
+            {
+                if (ShowBottomLabels)
+                    return 15;
+                else
+                    return 0;
+            }
+        }
 
         #endregion
+
+
+        private static DependencyProperty ShowBottomLabelsProperty;
+        public bool ShowBottomLabels
+        {
+            get { return (bool)GetValue(ShowBottomLabelsProperty); }
+            set
+            {
+                SetValue(ShowBottomLabelsProperty, value);
+                OnPropertyChanged("BottomLabelHeight");
+            }
+        }
+
 
         #region Events
 
@@ -146,6 +174,7 @@ namespace Kurs.Views
         {
             //OnPropertyChanged("InputsNumber");
             OnPropertyChanged("RectHeight");
+            OnPropertyChanged("BottomLabelHeight");
 
             if(DataContext != null)
                 if ((DataContext as GateViewModel).Name == "READER")

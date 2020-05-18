@@ -136,7 +136,6 @@ namespace Kurs.ViewModels
 
         #endregion
 
-
         #region Methods
 
         public void FilterGates(object sender, ListChangedEventArgs e)
@@ -170,6 +169,7 @@ namespace Kurs.ViewModels
 
         #region Commands
 
+
         #region Search
 
         private DelegateCommand searchCommand;
@@ -198,7 +198,7 @@ namespace Kurs.ViewModels
 
             FilteredGates.Clear();
 
-            Regex regex = new Regex(SearchString.ToUpper());
+            Regex regex = new Regex(SearchString, RegexOptions.IgnoreCase);
 
             SQLiteCommand com = new SQLiteCommand(SQLiteCon);
             com.CommandText = "SELECT * FROM view_Gates";
@@ -218,6 +218,7 @@ namespace Kurs.ViewModels
 
         #endregion
 
+        #region SelectCommand
 
         private DelegateCommand<GateViewModel> selectCommand;
 
@@ -253,6 +254,8 @@ namespace Kurs.ViewModels
             }
         }
         public GateViewModel _selectedGateViewModel;
+
+        #endregion
 
 
         #endregion

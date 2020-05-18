@@ -49,7 +49,8 @@
                 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <local:GateView DataContext="{Binding gateViewModel}">
+                            <local:GateView DataContext="{Binding gateViewModel}"
+                                            ShowBottomLabels="{Binding ShowBottomLabels}">
                                 <i:Interaction.Triggers>
                                     <local:HandlingEventTrigger EventName="MouseLeftButtonDown">
                                         <i:InvokeCommandAction Command="{Binding DataContext.SelectGateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"

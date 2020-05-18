@@ -12,7 +12,7 @@ namespace Kurs.ViewModels
     {
         #region Constructors
 
-        public GateViewModel(Gate g)
+        public GateViewModel(Gate g, bool NumLabelVisible = false, bool ValLabelVisible = false)
         {
             if (g == null)
                 throw new ArgumentException("GateViewModel recieved null gate param.");
@@ -29,6 +29,8 @@ namespace Kurs.ViewModels
 
             #endregion
 
+            NumberLabelVisible = NumLabelVisible;
+            ValueLabelVisible = ValLabelVisible;
         }
 
         #endregion
@@ -47,6 +49,50 @@ namespace Kurs.ViewModels
             get { return gate.InputsNumber; }
         }
 
+        public string NumberLabel
+        {
+            get { return _numberLabel; }
+            set
+            {
+                _numberLabel = value;
+                OnPropertyChanged("NumberLabel");
+            }
+        }
+        public string _numberLabel;
+
+        public bool NumberLabelVisible
+        {
+            get { return _numberLabelVisible; }
+            set
+            {
+                _numberLabelVisible = value;
+                OnPropertyChanged("NumberLabelVisible");
+            }
+        }
+        public bool _numberLabelVisible;
+
+        public string ValueLabel
+        {
+            get { return _valueLabel; }
+            set
+            {
+                _valueLabel = value;
+                OnPropertyChanged("ValueLabel");
+            }
+        }
+        public string _valueLabel;
+
+        public bool ValueLabelVisible
+        {
+            get { return _valueLabelVisible; }
+            set
+            {
+                _valueLabelVisible = value;
+                OnPropertyChanged("ValueLabelVisible");
+            }
+        }
+        public bool _valueLabelVisible;
+
         public List<PinViewModel> AllPins
         {
             get
@@ -54,6 +100,16 @@ namespace Kurs.ViewModels
                 var res = new List<PinViewModel>(inputPins);
                 res.Add(outputPin);
                 return res;
+            }
+        }
+
+        public bool ShowBottomLabels
+        {
+            get { return _showBottomLabels; }
+            set
+            {
+                _showBottomLabels = value;
+                OnPropertyChanged("ShowBottomLabels");
             }
         }
 
@@ -87,6 +143,7 @@ namespace Kurs.ViewModels
 
         public readonly Gate gate;
         public bool _selected;
+        public bool _showBottomLabels;
 
         #endregion
     }

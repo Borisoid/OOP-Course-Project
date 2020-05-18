@@ -34,8 +34,35 @@ namespace Kurs.ViewModels
 
         #endregion
 
+        #region Pin selection & connection
+
+        /// <summary>
+        /// Adds gate with coords in work area; 'registers' all its pins to allow selection and connection.
+        /// </summary>
+        /// <param name="gvmwc"></param>
         public void AddGate(GateViewModelWithCoordinates gvmwc)
         {
+            if(gvmwc.gateViewModel.Name == "SOURCE")
+            {
+                gvmwc.gateViewModel.ShowBottomLabels = true;
+                gvmwc.gateViewModel.NumberLabelVisible = true;
+                int i = 0;
+                foreach (GateViewModelWithCoordinates g in GateList)
+                    if (g.gateViewModel.Name == "SOURCE")
+                        i++;
+                gvmwc.gateViewModel.NumberLabel = (i + 1).ToString();
+            }
+            if (gvmwc.gateViewModel.Name == "READER")
+            {
+                gvmwc.gateViewModel.ShowBottomLabels = true;
+                gvmwc.gateViewModel.NumberLabelVisible = true;
+                int i = 0;
+                foreach (GateViewModelWithCoordinates g in GateList)
+                    if (g.gateViewModel.Name == "READER")
+                        i++;
+                gvmwc.gateViewModel.NumberLabel = (i + 1).ToString();
+            }
+
             GateList.Add(gvmwc);
 
             foreach (PinViewModel p in gvmwc.gateViewModel.inputPins)
@@ -60,6 +87,9 @@ namespace Kurs.ViewModels
                     SelectedOutputPin = OutputPins[e.NewIndex];
             }
         }
+
+        public BindingList<PinViewModel> InputPins { get; set; }
+        public BindingList<PinViewModel> OutputPins { get; set; }
 
         public PinViewModel SelectedInputPin
         {
@@ -104,6 +134,8 @@ namespace Kurs.ViewModels
 
             return;
         }
+
+        #endregion
 
         #region NestedClasses
 
@@ -303,12 +335,15 @@ namespace Kurs.ViewModels
         public BindingList<GateViewModelWithCoordinates> GateList { get; set; }
         public BindingList<ConnectionViewModelWithCoordinates> ConnectionList { get; set; }
 
-        public BindingList<PinViewModel> InputPins { get; set; }
-        public BindingList<PinViewModel> OutputPins { get; set; }
         #endregion
 
         #region Commands
 
+        #region PlaceCommand
+
+        /// <summary>
+        /// Places gate selected in ItemsPicker at the coords of mouse.
+        /// </summary>
         private DelegateCommand<System.Windows.Point> PlaceCommand;
 
         public ICommand placeCommand
@@ -329,7 +364,9 @@ namespace Kurs.ViewModels
                 AddGate(new GateViewModelWithCoordinates((GateViewModel)itemsPicker.SelectedGateViewModel.Clone(), (int)p.X, (int)p.Y));
         }
 
+        #endregion
 
+        #region SelectGateCommand
 
         private DelegateCommand<GateViewModel> selectGateCommand;
 
@@ -359,6 +396,23 @@ namespace Kurs.ViewModels
         }
 
 
+        public GateViewModelWithCoordinates SelectedGateViewModelWithCoordinates
+        {
+            get { return _selectedGateViewModelWithCoordinates; }
+            set
+            {
+                if (_selectedGateViewModelWithCoordinates != null)
+                    _selectedGateViewModelWithCoordinates.IsSelected = false;
+                _selectedGateViewModelWithCoordinates = value;
+                if (_selectedConnectionViewModelWithCoordinates != null)
+                    _selectedGateViewModelWithCoordinates.IsSelected = true;
+            }
+        }
+        public GateViewModelWithCoordinates _selectedGateViewModelWithCoordinates;
+
+        #endregion
+
+        #region SelectConnectionCommand
 
         private DelegateCommand<ConnectionViewModelWithCoordinates> selectConnectionCommand;
         public ICommand SelectConnectionCommand
@@ -379,6 +433,26 @@ namespace Kurs.ViewModels
         }
 
 
+        public ConnectionViewModelWithCoordinates SelectedConnectionViewModelWithCoordinates
+        {
+            get { return _selectedConnectionViewModelWithCoordinates; }
+            set
+            {
+                //if (_selectedConnectionViewModelWithCoordinates != null)
+                //    _selectedConnectionViewModelWithCoordinates.Selected = false;
+                _selectedConnectionViewModelWithCoordinates = value;
+                //_selectedConnectionViewModelWithCoordinates.Selected = true;
+            }
+        }
+        public ConnectionViewModelWithCoordinates _selectedConnectionViewModelWithCoordinates;
+
+        #endregion
+
+        #region DeleteCommand
+
+        /// <summary>
+        /// Deletes selected connection or gate with all its connections
+        /// </summary>
         private DelegateCommand deleteCommand;
         public ICommand DeleteCommand
         {
@@ -423,38 +497,16 @@ namespace Kurs.ViewModels
             }
         }
 
+        #endregion
+
+        /// <summary>
+        /// Deselects gates and connections.
+        /// </summary>
         public void Deselect()
         {
             SelectedConnectionViewModelWithCoordinates = null;
             SelectedGateViewModelWithCoordinates = null;
         }
-
-        public ConnectionViewModelWithCoordinates SelectedConnectionViewModelWithCoordinates
-        {
-            get { return _selectedConnectionViewModelWithCoordinates; }
-            set
-            {
-                //if (_selectedConnectionViewModelWithCoordinates != null)
-                //    _selectedConnectionViewModelWithCoordinates.Selected = false;
-                _selectedConnectionViewModelWithCoordinates = value;
-                //_selectedConnectionViewModelWithCoordinates.Selected = true;
-            }
-        }
-        public ConnectionViewModelWithCoordinates _selectedConnectionViewModelWithCoordinates;
-
-        public GateViewModelWithCoordinates SelectedGateViewModelWithCoordinates
-        {
-            get { return _selectedGateViewModelWithCoordinates; }
-            set
-            {
-                if (_selectedGateViewModelWithCoordinates != null)
-                    _selectedGateViewModelWithCoordinates.IsSelected = false;
-                _selectedGateViewModelWithCoordinates = value;
-                if (_selectedConnectionViewModelWithCoordinates != null)
-                    _selectedGateViewModelWithCoordinates.IsSelected = true;
-            }
-        }
-        public GateViewModelWithCoordinates _selectedGateViewModelWithCoordinates;
 
         #endregion
 

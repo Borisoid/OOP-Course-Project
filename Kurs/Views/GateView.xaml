@@ -11,57 +11,84 @@
     <UserControl.Resources>
         <local:MarginConverter x:Key="marginConverter"></local:MarginConverter>
     </UserControl.Resources>
-    <StackPanel Orientation="Horizontal">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="{Binding BottomLabelHeight, ElementName=View}"/>
+        </Grid.RowDefinitions>
         
-        <ItemsControl x:Name="leftSide"
-                      ItemsSource="{Binding inputPins}"
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0">
+        
+            <ItemsControl x:Name="leftSide"
+                          ItemsSource="{Binding inputPins}"
+                          Height="{Binding RectHeight, ElementName=View}"
+                          Width="{Binding PinWidth, ElementName=View}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Height="{Binding HeightPerPin, ElementName=View}"
+                                    Width="{Binding PinWidth, ElementName=View}">
+                            <local:PinView Margin="{Binding OneThirdPinHeight, ElementName=View, Converter={StaticResource marginConverter}}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        
+            <Canvas x:Name="canvas"
+                    Height="{Binding RectHeight, ElementName=View}"
+                    Width="{Binding RectWidth, ElementName=View}">
+                <Rectangle x:Name="body"
+                           Canvas.Top="0"
+                           Canvas.Left="0"
+                           Height="{Binding RectHeight, ElementName=View}"
+                           Width="{Binding RectWidth, ElementName=View}"
+                           Fill="LightGray"
+                           Stroke="Black"
+                           StrokeThickness="2">
+
+                </Rectangle>
+                <Grid x:Name="internalGrid"
                       Height="{Binding RectHeight, ElementName=View}"
-                      Width="{Binding PinWidth, ElementName=View}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Height="{Binding HeightPerPin, ElementName=View}"
-                                Width="{Binding PinWidth, ElementName=View}">
-                        <local:PinView Margin="{Binding OneThirdPinHeight, ElementName=View, Converter={StaticResource marginConverter}}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        
-        <Canvas x:Name="canvas"
-                Height="{Binding RectHeight, ElementName=View}"
-                Width="{Binding RectWidth, ElementName=View}">
-            <Rectangle x:Name="body"
-                       Canvas.Top="0"
-                       Canvas.Left="0"
-                       Height="{Binding RectHeight, ElementName=View}"
-                       Width="{Binding RectWidth, ElementName=View}"
-                       Fill="LightGray"
-                       Stroke="Black"
-                       StrokeThickness="2">
+                      Width="{Binding RectWidth, ElementName=View}"
+                      IsHitTestVisible="False"
+                      Canvas.Top="0"
+                      Canvas.Left="0">
+                    <Label x:Name="label"
+                           Content="{Binding Name}"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Margin="0,2,0,0"/>
+                </Grid>
+            </Canvas>
 
-            </Rectangle>
-            <Grid x:Name="internalGrid"
-                  Height="{Binding RectHeight, ElementName=View}"
-                  Width="{Binding RectWidth, ElementName=View}"
-                  IsHitTestVisible="False"
-                  Canvas.Top="0"
-                  Canvas.Left="0">
-                <Label x:Name="label"
-                       Content="{Binding Name}"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,2,0,0"/>
+            <Grid Width="{Binding PinWidth, ElementName=View}"
+                  x:Name="RightSide">
+                <local:PinView VerticalAlignment="Center"
+                               Type="Output"
+                               Margin="0, -10, 0, 0"
+                               DataContext="{Binding outputPin}"/>
             </Grid>
-        </Canvas>
+        
+        </StackPanel>
 
-        <Grid Width="{Binding PinWidth, ElementName=View}"
-              x:Name="RightSide">
-            <local:PinView VerticalAlignment="Center"
-                           Type="Output"
-                           Margin="0, -10, 0, 0"
-                           DataContext="{Binding outputPin}"/>
+        <Grid Grid.Row="1"
+              Width="{Binding RectWidth, ElementName=View}"
+              HorizontalAlignment="Center"
+              IsHitTestVisible="False"
+              Visibility="{Binding ShowBottomLabels, ElementName=View}">
+            <Label Content="{Binding NumberLabel}"
+                   Visibility="{Binding NumberLabelVisible}"
+                   HorizontalAlignment="Left"
+                   Margin="0, -7, 0, 0"
+                   FontSize="10"/>
+            <Label Content="{Binding ValueLabel}"
+                   Visibility="{Binding ValueLabelVisible}"
+                   HorizontalAlignment="Right"
+                   Margin="0, -7, 0, 0"
+                   FontSize="10"/>
+
         </Grid>
         
-    </StackPanel>
-    
+    </Grid>
+
 </UserControl>
