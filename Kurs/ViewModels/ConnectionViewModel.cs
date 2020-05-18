@@ -25,5 +25,22 @@ namespace Kurs.ViewModels
 
         public PinView PinView1 { get { return PinViewModel1.PinView; } }
         public PinView PinView2 { get { return PinViewModel2.PinView; } }
+
+        public void Disconnect()
+        {
+            PinViewModel1.BreakConnection(this);
+            PinViewModel2.BreakConnection(this);
+        }
+
+        //public bool IsSelected
+        //{
+        //    get { return _isSelected; }
+        //    set
+        //    {
+        //        _isSelected = value;
+        //        OnPropertyChanged("IsSelected");
+        //    }
+        //}
+        //public bool _isSelected;
     }
 }

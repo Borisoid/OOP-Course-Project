@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Kurs.Models
 {
     public class Gate : IHavePins
     {
-        public Gate(string name, int inputsNumber, bool[] function)
+        public Gate(string name, int inputsNumber, string function)
         {
-            if (inputsNumber < 1)
-                throw new ArgumentException("Gate cannot have less than 1 inputs.");
+            if (inputsNumber < 0)
+                throw new ArgumentException("Gate cannot have less than 0 inputs.");
             if (Math.Pow(2, inputsNumber) != function.Length)
                 throw new ArgumentException("passed function doesn't correspond to passed inputsNumber " +
                     "(must be 2^inputsNumber == function.Length)");
 
             Name = name;
             InputsNumber = inputsNumber;
-
-            Function = new bool[function.Length];
-            function.CopyTo(Function, 0);
+            Function = function;
 
             OutputPin = new OutputPin(this);
             for (int i = 0; i < inputsNumber; i++)
@@ -49,6 +48,9 @@ namespace Kurs.Models
         {
             get
             {
+                if (InputPins.Length == 0)
+                    return _setOutputValue;
+
                 string InputsString = "";
                 foreach(InputPin pin in InputPins)
                 {
@@ -56,16 +58,19 @@ namespace Kurs.Models
                 }
                 int DecimalValue = Convert.ToInt32(InputsString, 2);
 
-                return Function[DecimalValue];
+                int lastIndex = Function.Length - 1;
+                return Function[lastIndex - DecimalValue] == '1';
             }
+            set { _setOutputValue = value; }
         }
 
+        public bool _setOutputValue;
 
         /// <summary>
         /// Represents bool function coresponding to the Gate.
         /// Function[m] - value of the output having inputs recieve m in binary.
         /// </summary>
-        public bool[] Function
+        public string Function
         {
             get { return _function; }
             set
@@ -77,6 +82,6 @@ namespace Kurs.Models
                     _function = value;
             }
         }
-        public bool[] _function;
+        public string _function;
     }
 }

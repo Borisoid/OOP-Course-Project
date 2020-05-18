@@ -43,7 +43,7 @@ namespace Kurs.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("22")]
         public int BaseGateViewHeightPerPin {
             get {
                 return ((int)(this["BaseGateViewHeightPerPin"]));
@@ -61,7 +61,7 @@ namespace Kurs.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
         public int BasePinViewRectHeight {
             get {
                 return ((int)(this["BasePinViewRectHeight"]));

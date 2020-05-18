@@ -51,6 +51,12 @@ namespace Kurs.ViewModels
             connectionViewMoedels.Add(cvm);
         }
 
+        public void BreakConnection(ConnectionViewModel con)
+        {
+            Pin.Connections.Remove(con.connection);
+            connectionViewMoedels.Remove(con);
+        }
+
         #endregion
 
         #region Data

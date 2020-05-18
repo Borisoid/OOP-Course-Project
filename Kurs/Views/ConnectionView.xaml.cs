@@ -26,9 +26,6 @@ namespace Kurs.Views
         {
             InitializeComponent();
         }
-        public PinView Pin1;
-        
-        public PinView Pin2;
 
         private static DependencyProperty X1Property;
         private static DependencyProperty Y1Property;

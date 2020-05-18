@@ -159,18 +159,7 @@ namespace Kurs.ViewModels
                 int inpNumber = r.GetInt32(1);
                 string function = r.GetString(2);
 
-                #region Converting string of 0's and 1's into bool array
-
-                function.Reverse();
-                bool[] func = new bool[function.Length];
-                for(int i = 0; i < function.Length; i++)
-                {
-                    func[i] = function[i] == 1;
-                }
-
-                #endregion
-
-                Gate g = new Gate(name, inpNumber, func);
+                Gate g = new Gate(name, inpNumber, function);
                 GateViewModel gvm = new GateViewModel(g);
 
                 FilteredGates.Add(gvm);
@@ -222,18 +211,7 @@ namespace Kurs.ViewModels
                     int InputsNumber = r.GetInt32(1);
                     string function = r.GetString(2);
 
-                    #region Converting string of 0's and 1's into bool array
-
-                    function.Reverse();
-                    bool[] func = new bool[function.Length];
-                    for (int i = 0; i < function.Length; i++)
-                    {
-                        func[i] = function[i] == 1;
-                    }
-
-                    #endregion
-
-                    FilteredGates.Add(new GateViewModel(new Gate(Name, InputsNumber, func)));
+                    FilteredGates.Add(new GateViewModel(new Gate(Name, InputsNumber, function)));
                 }
             }
         }

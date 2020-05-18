@@ -54,9 +54,11 @@
             </Grid>
         </Canvas>
 
-        <Grid Width="{Binding PinWidth, ElementName=View}">
+        <Grid Width="{Binding PinWidth, ElementName=View}"
+              x:Name="RightSide">
             <local:PinView VerticalAlignment="Center"
                            Type="Output"
+                           Margin="0, -10, 0, 0"
                            DataContext="{Binding outputPin}"/>
         </Grid>
         

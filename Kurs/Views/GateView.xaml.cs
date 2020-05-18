@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 
 using Kurs.ViewModels;
+using Kurs.Models;
 
 namespace Kurs.Views
 {
@@ -47,6 +48,35 @@ namespace Kurs.Views
 
         #endregion
 
+        //private static DependencyProperty SelectedProperty;
+        //static GateView()
+        //{
+        //    SelectedProperty = DependencyProperty.Register("Selected", typeof(bool), typeof(GateView));
+        //}
+        //public bool Selected
+        //{
+        //    get { return (bool)GetValue(SelectedProperty); }
+        //    set { SetValue(SelectedProperty, value); OnPropertyChanged("OutlineColor"); }
+        //}
+        //public SolidColorBrush OutlineColor
+        //{
+        //    get
+        //    {
+        //        if(Selected)
+        //        {
+        //            var b = new SolidColorBrush();
+        //            b.Color = Colors.Red;
+        //            return b;
+        //        }
+        //        else
+        //        {
+        //            var b = new SolidColorBrush();
+        //            b.Color = Colors.Black;
+        //            return b;
+        //        }
+        //    }
+        //}
+
         #region Properties
 
         public int InputsNumber
@@ -70,9 +100,9 @@ namespace Kurs.Views
                 OnPropertyChanged("halfPinHeightHeight");
             }
         }
-        public int RectHeight
+        public double RectHeight
         {
-            get { return _baseHeightPerPin * InputsNumber * _scaleFactor; }
+            get { return _baseHeightPerPin * (InputsNumber == 0 || InputsNumber == 1 ? 1.3 : InputsNumber) * _scaleFactor; }
         }
         public int RectWidth
         {
@@ -116,6 +146,10 @@ namespace Kurs.Views
         {
             //OnPropertyChanged("InputsNumber");
             OnPropertyChanged("RectHeight");
+
+            if(DataContext != null)
+                if ((DataContext as GateViewModel).Name == "READER")
+                    RightSide.Visibility = Visibility.Hidden;
         }
 
         #endregion

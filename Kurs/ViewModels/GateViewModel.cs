@@ -47,6 +47,16 @@ namespace Kurs.ViewModels
             get { return gate.InputsNumber; }
         }
 
+        public List<PinViewModel> AllPins
+        {
+            get
+            {
+                var res = new List<PinViewModel>(inputPins);
+                res.Add(outputPin);
+                return res;
+            }
+        }
+
         public bool Selected
         {
             get { return _selected; }
@@ -70,6 +80,8 @@ namespace Kurs.ViewModels
         }
 
         #endregion
+
+
 
         #region Data
 

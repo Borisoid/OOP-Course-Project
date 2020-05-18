@@ -46,7 +46,7 @@ namespace Kurs.ViewModels
 
         public void InputPinsChanged(object sender, ListChangedEventArgs e)
         {
-            if(e.ListChangedType == ListChangedType.ItemChanged)
+            if (e.ListChangedType == ListChangedType.ItemChanged)
             {
                 if (InputPins[e.NewIndex].IsSelected)
                     SelectedInputPin = InputPins[e.NewIndex];
@@ -91,7 +91,7 @@ namespace Kurs.ViewModels
         {
             if (SelectedInputPin == null || SelectedOutputPin == null)
                 return;
-            if(SelectedInputPin.Pin.Owner == SelectedOutputPin.Pin.Owner)
+            if (SelectedInputPin.Pin.Owner == SelectedOutputPin.Pin.Owner)
             {
                 SelectedInputPin = null;
                 SelectedOutputPin = null;
@@ -101,6 +101,7 @@ namespace Kurs.ViewModels
             ConnectionList.Add(new ConnectionViewModelWithCoordinates(con));
             SelectedInputPin = null;
             SelectedOutputPin = null;
+
             return;
         }
 
@@ -135,7 +136,7 @@ namespace Kurs.ViewModels
             #endregion
 
             #region Properties
-            
+
             public int X
             {
                 get { return _x; }
@@ -155,6 +156,11 @@ namespace Kurs.ViewModels
                 }
             }
             public GateViewModel gateViewModel { get; set; }
+            public bool IsSelected
+            {
+                get { return gateViewModel.Selected; }
+                set { gateViewModel.Selected = value; }
+            }
 
             #endregion
 
@@ -191,7 +197,7 @@ namespace Kurs.ViewModels
 
                     //WorkArea "Canvas"
                     DependencyObject container = Pin1;
-                    while(container.GetType() != typeof(Canvas))
+                    while (container.GetType() != typeof(Canvas))
                     {
                         container = VisualTreeHelper.GetParent(container);
                     }
@@ -260,6 +266,7 @@ namespace Kurs.ViewModels
                 }
             }
 
+
             #endregion
 
             #region INotifyPropertyChanged
@@ -280,7 +287,7 @@ namespace Kurs.ViewModels
             #region Data
 
             public ConnectionViewModel connectionViewModel;
-            public WorkAreaView View;
+            //public WorkAreaView View;
             public double _x1;
             public double _y1;
             public double _x2;
@@ -321,6 +328,133 @@ namespace Kurs.ViewModels
             if (itemsPicker.SelectedGateViewModel != null)
                 AddGate(new GateViewModelWithCoordinates((GateViewModel)itemsPicker.SelectedGateViewModel.Clone(), (int)p.X, (int)p.Y));
         }
+
+
+
+        private DelegateCommand<GateViewModel> selectGateCommand;
+
+        public ICommand SelectGateCommand
+        {
+            get
+            {
+                if (selectGateCommand == null)
+                {
+                    selectGateCommand = new DelegateCommand<GateViewModel>(SelectGate);
+                }
+                return selectGateCommand;
+            }
+        }
+
+        private void SelectGate(GateViewModel gvm)
+        {
+            Deselect();
+            foreach(GateViewModelWithCoordinates gvmwc in GateList)
+            {
+                if (gvmwc.gateViewModel == gvm)
+                {
+                    SelectedGateViewModelWithCoordinates = gvmwc;
+                    break;
+                }
+            }
+        }
+
+
+
+        private DelegateCommand<ConnectionViewModelWithCoordinates> selectConnectionCommand;
+        public ICommand SelectConnectionCommand
+        {
+            get
+            {
+                if (selectConnectionCommand == null)
+                {
+                    selectConnectionCommand = new DelegateCommand<ConnectionViewModelWithCoordinates>(SelectConnection);
+                }
+                return selectConnectionCommand;
+            }
+        }
+        private void SelectConnection(ConnectionViewModelWithCoordinates cvmwc)
+        {
+            Deselect();
+            SelectedConnectionViewModelWithCoordinates = cvmwc;
+        }
+
+
+        private DelegateCommand deleteCommand;
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                if (deleteCommand == null)
+                {
+                    deleteCommand = new DelegateCommand(Delete);
+                }
+                return deleteCommand;
+            }
+        }
+        private void Delete()
+        {
+            if(SelectedConnectionViewModelWithCoordinates != null)
+            {
+                SelectedConnectionViewModelWithCoordinates.connectionViewModel.Disconnect();
+                ConnectionList.Remove(SelectedConnectionViewModelWithCoordinates);
+                SelectedConnectionViewModelWithCoordinates = null;
+            }
+            if(SelectedGateViewModelWithCoordinates != null)
+            {
+                foreach (PinViewModel p in SelectedGateViewModelWithCoordinates.gateViewModel.AllPins)
+                {
+                    var cvms = p.connectionViewMoedels;
+                    foreach (ConnectionViewModel c in p.connectionViewMoedels)
+                    {
+                        foreach (ConnectionViewModelWithCoordinates cvmwc in ConnectionList)
+                            if (Object.ReferenceEquals(c, cvmwc.connectionViewModel))
+                            {
+                                ConnectionList.Remove(cvmwc);
+                                break;
+                            }
+                    }
+                    while (cvms.Count != 0)
+                    {
+                        cvms[0].Disconnect();
+                    }
+                }
+                GateList.Remove(SelectedGateViewModelWithCoordinates);
+                SelectedGateViewModelWithCoordinates = null;
+            }
+        }
+
+        public void Deselect()
+        {
+            SelectedConnectionViewModelWithCoordinates = null;
+            SelectedGateViewModelWithCoordinates = null;
+        }
+
+        public ConnectionViewModelWithCoordinates SelectedConnectionViewModelWithCoordinates
+        {
+            get { return _selectedConnectionViewModelWithCoordinates; }
+            set
+            {
+                //if (_selectedConnectionViewModelWithCoordinates != null)
+                //    _selectedConnectionViewModelWithCoordinates.Selected = false;
+                _selectedConnectionViewModelWithCoordinates = value;
+                //_selectedConnectionViewModelWithCoordinates.Selected = true;
+            }
+        }
+        public ConnectionViewModelWithCoordinates _selectedConnectionViewModelWithCoordinates;
+
+        public GateViewModelWithCoordinates SelectedGateViewModelWithCoordinates
+        {
+            get { return _selectedGateViewModelWithCoordinates; }
+            set
+            {
+                if (_selectedGateViewModelWithCoordinates != null)
+                    _selectedGateViewModelWithCoordinates.IsSelected = false;
+                _selectedGateViewModelWithCoordinates = value;
+                if (_selectedConnectionViewModelWithCoordinates != null)
+                    _selectedGateViewModelWithCoordinates.IsSelected = true;
+            }
+        }
+        public GateViewModelWithCoordinates _selectedGateViewModelWithCoordinates;
 
         #endregion
 

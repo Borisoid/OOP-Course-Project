@@ -21,7 +21,9 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0"
               Grid.ColumnSpan="2">
-            
+            <MenuItem Command="{Binding runCommand}" Header="Run">
+                
+            </MenuItem>
         </Menu>
         <local:ItemPicker Grid.Column="0"
                           Grid.Row="1"
