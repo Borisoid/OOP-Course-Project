@@ -61,21 +61,20 @@ namespace Kurs.ViewModels
         }
         public void Renumber()
         {
-            int i = 0;
+            int i = 0, j = 0;
             foreach (GateViewModelWithCoordinates gvmwc in GateList)
+            {
                 if (gvmwc.gateViewModel.Name == "SOURCE")
                 {
                     gvmwc.gateViewModel.NumberLabel = (i).ToString();
                     i++;
                 }
-
-            i = 0;
-            foreach (GateViewModelWithCoordinates gvmwc in GateList)
                 if (gvmwc.gateViewModel.Name == "READER")
                 {
-                    gvmwc.gateViewModel.NumberLabel = (i).ToString();
-                    i++;
+                    gvmwc.gateViewModel.NumberLabel = (j).ToString();
+                    j++;
                 }
+            }
         }
 
         public void InputPinsChanged(object sender, ListChangedEventArgs e)

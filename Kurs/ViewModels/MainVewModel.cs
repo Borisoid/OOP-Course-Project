@@ -53,7 +53,9 @@ namespace Kurs.ViewModels
             }
         }
         
-
+        /// <summary>
+        /// Goes through all the possible input variations and gets all the output values.
+        /// </summary>
         private void Run()
         {
             List<IOValues> IOList = new List<IOValues>();
@@ -66,6 +68,15 @@ namespace Kurs.ViewModels
                     Inputs.Add(g.gateViewModel.gate);
                 if (g.gateViewModel.Name == "READER")
                     Outputs.Add(g.gateViewModel.gate);
+            }
+
+            foreach(Gate g in Outputs)
+            {
+                if(LookForCycle(g, new List<IHavePins>() ) )
+                {
+                    MessageBox.Show("There is a cycle. You cannot continue untill removing it.");
+                    return;
+                }
             }
 
             for (int i = 0; i < Math.Pow(2, Inputs.Count); i++)
@@ -95,10 +106,13 @@ namespace Kurs.ViewModels
                     FunctionString = FunctionString + (g.OutputValue ? '1' : '0');
                 }
 
-                MessageBox.Show(ArgumentString + "_" + FunctionString);
+                //MessageBox.Show(ArgumentString + "_" + FunctionString);
 
                 IOList.Add(new IOValues(ArgumentString, FunctionString));
             }
+
+            var lvm = new LogicalTableViewModel(IOList);
+            lvm.ShowView();
 
             #region CommentedTests
 
