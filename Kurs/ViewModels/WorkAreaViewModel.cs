@@ -42,33 +42,40 @@ namespace Kurs.ViewModels
         /// <param name="gvmwc"></param>
         public void AddGate(GateViewModelWithCoordinates gvmwc)
         {
-            if(gvmwc.gateViewModel.Name == "SOURCE")
+            if (gvmwc.gateViewModel.Name == "SOURCE" || gvmwc.gateViewModel.Name == "READER")
             {
                 gvmwc.gateViewModel.ShowBottomLabels = true;
                 gvmwc.gateViewModel.NumberLabelVisible = true;
-                int i = 0;
-                foreach (GateViewModelWithCoordinates g in GateList)
-                    if (g.gateViewModel.Name == "SOURCE")
-                        i++;
-                gvmwc.gateViewModel.NumberLabel = (i + 1).ToString();
-            }
-            if (gvmwc.gateViewModel.Name == "READER")
-            {
-                gvmwc.gateViewModel.ShowBottomLabels = true;
-                gvmwc.gateViewModel.NumberLabelVisible = true;
-                int i = 0;
-                foreach (GateViewModelWithCoordinates g in GateList)
-                    if (g.gateViewModel.Name == "READER")
-                        i++;
-                gvmwc.gateViewModel.NumberLabel = (i + 1).ToString();
+                
             }
 
             GateList.Add(gvmwc);
+
+            if (gvmwc.gateViewModel.Name == "SOURCE" || gvmwc.gateViewModel.Name == "READER")
+                Renumber();
 
             foreach (PinViewModel p in gvmwc.gateViewModel.inputPins)
                 InputPins.Add(p);
 
             OutputPins.Add(gvmwc.gateViewModel.outputPin);
+        }
+        public void Renumber()
+        {
+            int i = 0;
+            foreach (GateViewModelWithCoordinates gvmwc in GateList)
+                if (gvmwc.gateViewModel.Name == "SOURCE")
+                {
+                    gvmwc.gateViewModel.NumberLabel = (i).ToString();
+                    i++;
+                }
+
+            i = 0;
+            foreach (GateViewModelWithCoordinates gvmwc in GateList)
+                if (gvmwc.gateViewModel.Name == "READER")
+                {
+                    gvmwc.gateViewModel.NumberLabel = (i).ToString();
+                    i++;
+                }
         }
 
         public void InputPinsChanged(object sender, ListChangedEventArgs e)

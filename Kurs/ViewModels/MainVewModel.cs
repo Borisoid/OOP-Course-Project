@@ -39,7 +39,7 @@ namespace Kurs.ViewModels
 
         #region Commands
 
-        private DelegateCommand<GateViewModel> RunCommand;
+        private DelegateCommand RunCommand;
 
         public ICommand runCommand
         {
@@ -47,35 +47,84 @@ namespace Kurs.ViewModels
             {
                 if (RunCommand == null)
                 {
-                    RunCommand = new DelegateCommand<GateViewModel>(Run);
+                    RunCommand = new DelegateCommand(Run);
                 }
                 return RunCommand;
             }
         }
+        
 
-        private void Run(GateViewModel gvm)
+        private void Run()
         {
-            foreach(WorkAreaViewModel.GateViewModelWithCoordinates g in workArea.GateList)
-            {
-                if(g.gateViewModel.Name == "SOURCE")
-                g.gateViewModel.gate.OutputValue = true;
-            }
+            List<IOValues> IOList = new List<IOValues>();
+            List<Gate> Inputs = new List<Gate>();
+            List<Gate> Outputs = new List<Gate>();
+
             foreach (WorkAreaViewModel.GateViewModelWithCoordinates g in workArea.GateList)
             {
+                if (g.gateViewModel.Name == "SOURCE")
+                    Inputs.Add(g.gateViewModel.gate);
                 if (g.gateViewModel.Name == "READER")
-                {
-                    if (!LookForCycle(g.gateViewModel.gate, new List<IHavePins>()))
-                        MessageBox.Show(g.gateViewModel.gate.OutputValue.ToString());
-                    else
-                        MessageBox.Show("there's a cycle bitch");
-                }
+                    Outputs.Add(g.gateViewModel.gate);
             }
+
+            for (int i = 0; i < Math.Pow(2, Inputs.Count); i++)
+            {
+                //LIST INDEX accurete. Reverse to get bin.
+                string ArgumentString = "";
+
+                //setting inputs values so that they form number of current iteration in binary
+                foreach (Gate g in Inputs)
+                {
+                    if ((1 << Inputs.IndexOf(g) & i) != 0)
+                    {
+                        g.OutputValue = true;
+                        ArgumentString = ArgumentString + '1';
+                    }
+                    else
+                    {
+                        g.OutputValue = false;
+                        ArgumentString = ArgumentString + '0';
+                    }
+                }
+
+                //LIST INDEX accurate. Reverse to get bin.
+                string FunctionString = "";
+                foreach(Gate g in Outputs)
+                {
+                    FunctionString = FunctionString + (g.OutputValue ? '1' : '0');
+                }
+
+                MessageBox.Show(ArgumentString + "_" + FunctionString);
+
+                IOList.Add(new IOValues(ArgumentString, FunctionString));
+            }
+
+            #region CommentedTests
+
+            //foreach (WorkAreaViewModel.GateViewModelWithCoordinates g in workArea.GateList)
+            //{
+            //    if (g.gateViewModel.Name == "SOURCE")
+            //        g.gateViewModel.gate.OutputValue = true;
+            //}
+            //foreach (WorkAreaViewModel.GateViewModelWithCoordinates g in workArea.GateList)
+            //{
+            //    if (g.gateViewModel.Name == "READER")
+            //    {
+            //        if (!LookForCycle(g.gateViewModel.gate, new List<IHavePins>()))
+            //            MessageBox.Show(g.gateViewModel.gate.OutputValue.ToString());
+            //        else
+            //            MessageBox.Show("there's a cycle bitch");
+            //    }
+            //}
+
+            #endregion
         }
 
         #endregion
 
         /// <summary>
-        /// Returns true if graph has cycle.
+        /// Returns true if circuit (graph) has a cycle.
         /// </summary>
         /// <param name="g"></param>
         /// <param name="list"></param>
@@ -101,5 +150,16 @@ namespace Kurs.ViewModels
 
             return false;
         }
+    }
+
+    public class IOValues
+    {
+        public IOValues(string i, string o)
+        {
+            IValues = i;
+            OValues = o;
+        }
+        public string IValues { get; set; }
+        public string OValues { get; set; }
     }
 }
