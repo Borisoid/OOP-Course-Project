@@ -145,6 +145,7 @@ namespace Kurs.ViewModels
 
         #region NestedClasses
 
+        [Serializable]
         public class GateViewModelWithCoordinates : INotifyPropertyChanged
         {
             #region Constructors
@@ -210,6 +211,7 @@ namespace Kurs.ViewModels
             #endregion
         }
 
+        [Serializable]
         public class ConnectionViewModelWithCoordinates : INotifyPropertyChanged
         {
             #region Constructors
@@ -350,6 +352,7 @@ namespace Kurs.ViewModels
         /// <summary>
         /// Places gate selected in ItemsPicker at the coords of mouse.
         /// </summary>
+        [NonSerialized]
         private DelegateCommand<System.Windows.Point> PlaceCommand;
 
         public ICommand placeCommand
@@ -374,6 +377,7 @@ namespace Kurs.ViewModels
 
         #region SelectGateCommand
 
+        [NonSerialized]
         private DelegateCommand<GateViewModel> selectGateCommand;
 
         public ICommand SelectGateCommand
@@ -414,12 +418,14 @@ namespace Kurs.ViewModels
                     _selectedGateViewModelWithCoordinates.IsSelected = true;
             }
         }
+        [NonSerialized]
         public GateViewModelWithCoordinates _selectedGateViewModelWithCoordinates;
 
         #endregion
 
         #region SelectConnectionCommand
 
+        [NonSerialized]
         private DelegateCommand<ConnectionViewModelWithCoordinates> selectConnectionCommand;
         public ICommand SelectConnectionCommand
         {
@@ -459,6 +465,7 @@ namespace Kurs.ViewModels
         /// <summary>
         /// Deletes selected connection or gate with all its connections
         /// </summary>
+        [NonSerialized]
         private DelegateCommand deleteCommand;
         public ICommand DeleteCommand
         {
@@ -517,7 +524,136 @@ namespace Kurs.ViewModels
         #endregion
 
 
+        public void Load(WorkAreaSerialization s)
+        {
+            #region Clear
+
+            GateList.Clear();
+            ConnectionList.Clear();
+
+            InputPins.Clear();
+            OutputPins.Clear();
+
+            SelectedInputPin = null;
+            SelectedOutputPin = null;
+
+            #endregion
+
+            foreach(WorkAreaSerialization.GateModelWithCoordinates g in s.GateList)
+            {
+                AddGate(new GateViewModelWithCoordinates(new GateViewModel(g.gate), g.X, g.Y));
+            }
+
+            //RestoreConnections();
+        }
+
+        public void RestoreConnections()
+        {
+            var tmp = new List<ConnectionViewModelWithCoordinates>();
+            var oldConnections = new List<Connection>();
+            foreach (GateViewModelWithCoordinates gvmwc in GateList)
+            {
+                foreach (PinViewModel pvm in gvmwc.gateViewModel.AllPins)
+                {
+                    foreach (Connection c in pvm.Pin.Connections)
+                    {
+                        oldConnections.Add(c);
+                    }
+                }
+            }
+            foreach (GateViewModelWithCoordinates gvmwc in GateList)
+            {
+                foreach (PinViewModel pvm in gvmwc.gateViewModel.AllPins)
+                {
+                    foreach (Connection c in oldConnections)
+                    {
+
+
+                        foreach (GateViewModelWithCoordinates gvmwc2 in GateList)
+                        {
+                            foreach (PinViewModel pvm2 in gvmwc.gateViewModel.AllPins)
+                            {
+                                foreach (Connection c2 in oldConnections)
+                                {
+                                    if (c.Equals(c2))
+                                    {
+                                        tmp.Add(new ConnectionViewModelWithCoordinates(new ConnectionViewModel(pvm, pvm2)));
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+            }
+            foreach (ConnectionViewModelWithCoordinates c in tmp)
+            {
+                ConnectionList.Add(c);
+            }
+
+            ///*foreach (GateViewModelWithCoordinates gvmwc in GateList)
+            //{
+            //    foreach (PinViewModel pvm in gvmwc.gateViewModel.AllPins)
+            //    {
+            //        foreach (Connection c in pvm.Pin.Connections)
+            //        {
+
+
+            //            foreach (GateViewModelWithCoordinates gvmwc2 in GateList)
+            //            {
+            //                foreach (PinViewModel pvm2 in gvmwc.gateViewModel.AllPins)
+            //                {
+            //                    foreach (Connection c2 in pvm.Pin.Connections)
+            //                    {
+            //                        if (c.Equals(c2))
+            //                        {
+            //                            tmp.Add(new ConnectionViewModelWithCoordinates(new ConnectionViewModel(pvm, pvm2)));
+            //                            break;
+            //                        }
+            //                    }
+            //                }
+            //            }
+
+
+            //        }
+            //    }
+            //}*/
+        }
+
 
         public ItemsPickerViewModel itemsPicker;
+    }
+
+    [Serializable]
+    public class WorkAreaSerialization
+    {
+        public WorkAreaSerialization(WorkAreaViewModel source)
+        {
+            GateList = new List<GateModelWithCoordinates>();
+
+            foreach(WorkAreaViewModel.GateViewModelWithCoordinates g in source.GateList)
+            {
+                GateList.Add(new GateModelWithCoordinates(g.X, g.Y, g.gateViewModel.gate));
+            }
+        }
+
+        public List<GateModelWithCoordinates> GateList { get; set; }
+
+        [Serializable]
+        public class GateModelWithCoordinates
+        {
+            public GateModelWithCoordinates(int x, int y, Gate g)
+            {
+                X = x;
+                Y = y;
+                gate = g;
+            }
+
+            public int X;
+            public int Y;
+            public Gate gate;
+        }
     }
 }

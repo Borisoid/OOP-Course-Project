@@ -32,6 +32,14 @@ namespace Kurs.ViewModels
             PinViewModel2.BreakConnection(this);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Connection))
+                return false;
+            var c = obj as Connection;
+            return connection.Equals(c);
+        }
+
         //public bool IsSelected
         //{
         //    get { return _isSelected; }

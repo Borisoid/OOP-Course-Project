@@ -30,7 +30,7 @@ namespace Kurs.ViewModels
 
         #region Properties
 
-        public PinView PinView { get; set; }    //IT IS USED
+        public PinView PinView { get { return _pinView; } set { _pinView = value; } }    //IT IS USED
         public bool IsSelected
         {
             get { return _isSelected; }
@@ -62,6 +62,7 @@ namespace Kurs.ViewModels
         #region Data
 
         public readonly Pin Pin;
+        [NonSerialized]
         public PinView _pinView;    //IT IS USED
         public BindingList<ConnectionViewModel> connectionViewMoedels;
         public bool _isSelected;

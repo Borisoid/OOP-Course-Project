@@ -4,10 +4,13 @@ using System.Text;
 
 namespace Kurs.Models
 {
+    [Serializable]
     public class Connection
     {
         public override bool Equals(object obj)
         {
+            if (obj == null)
+                return false;
             if (!(obj is Connection))
                 return false;
             else

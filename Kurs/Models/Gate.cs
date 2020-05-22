@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Kurs.Models
 {
+    [Serializable]
     public class Gate : IHavePins
     {
         public Gate(string name, int inputsNumber, string function)
@@ -27,8 +28,8 @@ namespace Kurs.Models
         }
 
         public string Name { get; set; }
-        public OutputPin OutputPin { get; private set; }
-        public InputPin[] InputPins { get; private set; }
+        public OutputPin OutputPin { get; set; }
+        public InputPin[] InputPins { get; set; }
         public int InputsNumber
         {
             get { return InputPins.Length; }

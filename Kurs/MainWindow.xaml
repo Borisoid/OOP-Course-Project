@@ -21,6 +21,11 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0"
               Grid.ColumnSpan="2">
+            <MenuItem Header="File">
+                <MenuItem Header="Save" Command="{Binding fileSaveCommand}"/>
+                <MenuItem Header="Open" Command="{Binding fileLoadCommand}"/>
+                <MenuItem Header="test" Command="{Binding fileTestCommand}"/>
+            </MenuItem>
             <MenuItem Command="{Binding runCommand}" Header="Run">
                 
             </MenuItem>
