@@ -183,7 +183,7 @@ namespace Kurs.ViewModels
 
                 WorkAreaSerialization ser = formatter.Deserialize(fs) as WorkAreaSerialization;
 
-                //workArea.Load(ser);
+                workArea.Load(ser);
             }
         }
 
