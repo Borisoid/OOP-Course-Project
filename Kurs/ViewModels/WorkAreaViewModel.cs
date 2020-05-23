@@ -343,6 +343,7 @@ namespace Kurs.ViewModels
 
         public BindingList<GateViewModelWithCoordinates> GateList { get; set; }
         public BindingList<ConnectionViewModelWithCoordinates> ConnectionList { get; set; }
+        public ItemsPickerViewModel itemsPicker;
 
         #endregion
 
@@ -519,9 +520,17 @@ namespace Kurs.ViewModels
 
         #endregion
 
+        #region Methods
 
+        public void Load(WorkAreaSerialization ser)
+        {
+            foreach(WorkAreaSerialization.GateModelWithCoordinates g in ser.GateList)
+            {
+                AddGate(new GateViewModelWithCoordinates(new GateViewModel(g.gate), g.X, g.Y));
+            }
+        }
 
-        public ItemsPickerViewModel itemsPicker;
+        #endregion
     }
 
     [Serializable]
