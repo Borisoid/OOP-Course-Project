@@ -133,8 +133,11 @@ namespace Kurs.ViewModels
                 SelectedOutputPin = null;
                 return;
             }
-            ConnectionViewModel con = new ConnectionViewModel(SelectedInputPin, SelectedOutputPin);
-            ConnectionList.Add(new ConnectionViewModelWithCoordinates(con));
+            Connection con = new Connection();
+            SelectedInputPin.Pin.AssignConnection(con);
+            SelectedOutputPin.Pin.AssignConnection(con);
+            ConnectionViewModel cvm = new ConnectionViewModel(con);
+            ConnectionList.Add(new ConnectionViewModelWithCoordinates(cvm));
             SelectedInputPin = null;
             SelectedOutputPin = null;
 
