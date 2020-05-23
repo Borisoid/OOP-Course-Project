@@ -524,30 +524,23 @@ namespace Kurs.ViewModels
 
         public void Load(WorkAreaSerialization ser)
         {
-            foreach(WorkAreaSerialization.GateModelWithCoordinates g in ser.GateList)
+            #region Clear
+
+            ConnectionList.Clear();
+            GateList.Clear();
+
+            InputPins.Clear();
+            OutputPins.Clear();
+
+            SelectedInputPin = null;
+            SelectedOutputPin = null;
+
+            #endregion
+
+            foreach (WorkAreaSerialization.GateModelWithCoordinates g in ser.GateList)
             {
                 AddGate(new GateViewModelWithCoordinates(new GateViewModel(g.gate), g.X, g.Y));
             }
-
-            //#region Restore connection view models
-
-            //var hs = new HashSet<Connection>();
-            //foreach(GateViewModelWithCoordinates g in GateList)
-            //{
-            //    foreach(PinViewModel p in g.gateViewModel.AllPins)
-            //    {
-            //        foreach (Connection cvm in p.Pin.Connections)
-            //            hs.Add(cvm);
-            //    }
-            //}
-
-            //foreach(Connection con in hs)
-            //{
-            //    ConnectionViewModel cvm = new ConnectionViewModel(con);
-            //    ConnectionList.Add(new ConnectionViewModelWithCoordinates(cvm));
-            //}
-
-            //#endregion
         }
 
         public void RestoreConnections()
