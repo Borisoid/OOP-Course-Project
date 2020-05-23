@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Kurs.Models
 {
+    [Serializable]
     public abstract class Pin
     {
         public Pin()

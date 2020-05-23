@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Kurs.Models
 {
+    [Serializable]
     public class Connection
     {
         public override bool Equals(object obj)

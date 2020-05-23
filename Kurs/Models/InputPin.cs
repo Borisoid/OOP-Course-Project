@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Kurs.Models
 {
+    [Serializable]
     public class InputPin : Pin
     {
         public InputPin(IHavePins owner) : base()

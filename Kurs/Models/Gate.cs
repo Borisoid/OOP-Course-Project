@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Kurs.Models
 {
+    [Serializable]
     public class Gate : IHavePins
     {
         public Gate(string name, int inputsNumber, string function)
