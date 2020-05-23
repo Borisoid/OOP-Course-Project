@@ -20,6 +20,7 @@ namespace Kurs.ViewModels
                 throw new ArgumentException("PinViewModel recieved null pin param.");
 
             Pin = pin;
+            Pin.pinViewModel = this;
 
             //PinView = new PinView((Pin is InputPin) ? PinView.PinType.Input : PinView.PinType.Output);
 
@@ -47,7 +48,7 @@ namespace Kurs.ViewModels
 
         public void AssignConnection(ConnectionViewModel cvm)
         {
-            Pin.AssignConnection(cvm.connection);
+            //Pin.AssignConnection(cvm.connection);
             connectionViewMoedels.Add(cvm);
         }
 

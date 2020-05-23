@@ -9,12 +9,12 @@ namespace Kurs.ViewModels
 {
     public class ConnectionViewModel : ViewModelBase
     {
-        public ConnectionViewModel(PinViewModel p1, PinViewModel p2)
+        public ConnectionViewModel(Connection con)
         {
-            connection = new Connection();
+            connection = con;
 
-            PinViewModel1 = p1;
-            PinViewModel2 = p2;
+            PinViewModel1 = con.InputPin.pinViewModel;
+            PinViewModel2 = con.OutputPin.pinViewModel;
             PinViewModel1.AssignConnection(this);
             PinViewModel2.AssignConnection(this);
         }
