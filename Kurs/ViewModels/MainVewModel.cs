@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 using Kurs.Models;
 using Kurs.Commands;
@@ -133,6 +135,74 @@ namespace Kurs.ViewModels
             //}
 
             #endregion
+        }
+
+
+        private DelegateCommand FileSaveCommand;
+
+        public ICommand fileSaveCommand
+        {
+            get
+            {
+                if (FileSaveCommand == null)
+                {
+                    FileSaveCommand = new DelegateCommand(FileSave);
+                }
+                return FileSaveCommand;
+            }
+        }
+        public void FileSave()
+        {
+            using (FileStream fs = new FileStream(@"C:\Users\Boris\Desktop\Kurs.dat", FileMode.OpenOrCreate))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                formatter.Serialize(fs, new WorkAreaSerialization(workArea));
+            }
+        }
+
+
+        private DelegateCommand FileLoadCommand;
+
+        public ICommand fileLoadCommand
+        {
+            get
+            {
+                if (FileLoadCommand == null)
+                {
+                    FileLoadCommand = new DelegateCommand(FileLoad);
+                }
+                return FileLoadCommand;
+            }
+        }
+        public void FileLoad()
+        {
+            using (FileStream fs = new FileStream(@"C:\Users\Boris\Desktop\Kurs.dat", FileMode.OpenOrCreate))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                WorkAreaSerialization ser = formatter.Deserialize(fs) as WorkAreaSerialization;
+
+                //workArea.Load(ser);
+            }
+        }
+
+        private DelegateCommand FileTestCommand;
+
+        public ICommand fileTestCommand
+        {
+            get
+            {
+                if (FileTestCommand == null)
+                {
+                    FileTestCommand = new DelegateCommand(FileTest);
+                }
+                return FileTestCommand;
+            }
+        }
+        public void FileTest()
+        {
+            //workArea.RestoreConnections();
         }
 
         #endregion

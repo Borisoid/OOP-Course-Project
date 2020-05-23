@@ -520,4 +520,35 @@ namespace Kurs.ViewModels
 
         public ItemsPickerViewModel itemsPicker;
     }
+
+    [Serializable]
+    public class WorkAreaSerialization
+    {
+        public WorkAreaSerialization(WorkAreaViewModel source)
+        {
+            GateList = new List<GateModelWithCoordinates>();
+
+            foreach (WorkAreaViewModel.GateViewModelWithCoordinates g in source.GateList)
+            {
+                GateList.Add(new GateModelWithCoordinates(g.X, g.Y, g.gateViewModel.gate));
+            }
+        }
+
+        public List<GateModelWithCoordinates> GateList { get; set; }
+
+        [Serializable]
+        public class GateModelWithCoordinates
+        {
+            public GateModelWithCoordinates(int x, int y, Gate g)
+            {
+                X = x;
+                Y = y;
+                gate = g;
+            }
+
+            public int X;
+            public int Y;
+            public Gate gate;
+        }
+    }
 }
