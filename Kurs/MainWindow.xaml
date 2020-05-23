@@ -26,9 +26,9 @@
                 <MenuItem Header="Open" Command="{Binding fileLoadCommand}"/>
                 <MenuItem Header="test" Command="{Binding fileTestCommand}"/>
             </MenuItem>
-            <MenuItem Command="{Binding runCommand}" Header="Run">
-                
-            </MenuItem>
+            
+            <MenuItem Command="{Binding runCommand}" Header="Run"/>
+
         </Menu>
         <local:ItemPicker Grid.Column="0"
                           Grid.Row="1"

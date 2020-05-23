@@ -138,7 +138,6 @@ namespace Kurs.ViewModels
         }
 
 
-
         private DelegateCommand FileSaveCommand;
 
         public ICommand fileSaveCommand
@@ -184,7 +183,7 @@ namespace Kurs.ViewModels
 
                 WorkAreaSerialization ser = formatter.Deserialize(fs) as WorkAreaSerialization;
 
-                workArea.Load(ser);
+                //workArea.Load(ser);
             }
         }
 
@@ -203,7 +202,7 @@ namespace Kurs.ViewModels
         }
         public void FileTest()
         {
-            workArea.RestoreConnections();
+            //workArea.RestoreConnections();
         }
 
         #endregion
