@@ -202,7 +202,7 @@ namespace Kurs.ViewModels
         }
         public void FileTest()
         {
-            //workArea.RestoreConnections();
+            workArea.RestoreConnections();
         }
 
         #endregion

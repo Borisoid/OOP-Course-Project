@@ -528,6 +528,49 @@ namespace Kurs.ViewModels
             {
                 AddGate(new GateViewModelWithCoordinates(new GateViewModel(g.gate), g.X, g.Y));
             }
+
+            //#region Restore connection view models
+
+            //var hs = new HashSet<Connection>();
+            //foreach(GateViewModelWithCoordinates g in GateList)
+            //{
+            //    foreach(PinViewModel p in g.gateViewModel.AllPins)
+            //    {
+            //        foreach (Connection cvm in p.Pin.Connections)
+            //            hs.Add(cvm);
+            //    }
+            //}
+
+            //foreach(Connection con in hs)
+            //{
+            //    ConnectionViewModel cvm = new ConnectionViewModel(con);
+            //    ConnectionList.Add(new ConnectionViewModelWithCoordinates(cvm));
+            //}
+
+            //#endregion
+        }
+
+        public void RestoreConnections()
+        {
+            #region Restore connection view models
+
+            var hs = new HashSet<Connection>();
+            foreach (GateViewModelWithCoordinates g in GateList)
+            {
+                foreach (PinViewModel p in g.gateViewModel.AllPins)
+                {
+                    foreach (Connection cvm in p.Pin.Connections)
+                        hs.Add(cvm);
+                }
+            }
+
+            foreach (Connection con in hs)
+            {
+                ConnectionViewModel cvm = new ConnectionViewModel(con);
+                ConnectionList.Add(new ConnectionViewModelWithCoordinates(cvm));
+            }
+
+            #endregion
         }
 
         #endregion
