@@ -64,7 +64,12 @@ namespace Kurs.ViewModels
             get
             {
                 if (_con != null)
+                {
+                    if (_con.State == System.Data.ConnectionState.Closed)
+                        _con.Open();
+                    DBRecoveryMaster.CheckConnection(_con);
                     return _con;
+                }
                 else
                 {
                     SQLiteConnectionStringBuilder csb = new SQLiteConnectionStringBuilder();
@@ -72,6 +77,7 @@ namespace Kurs.ViewModels
                     csb.ForeignKeys = true;
                     _con = new SQLiteConnection(csb.ConnectionString);
                     _con.Open();
+                    DBRecoveryMaster.CheckConnection(_con);
                     return _con;
                 }
             }
@@ -143,7 +149,7 @@ namespace Kurs.ViewModels
             FilteredGates.Clear();
 
 
-            QueryBilder qb = new QueryBilder();
+            CategoryQueryBilder qb = new CategoryQueryBilder();
             foreach (CheckedCategory cc in Categories)
                 if (cc.Checked)
                     qb.Categories.Add(cc.Category);

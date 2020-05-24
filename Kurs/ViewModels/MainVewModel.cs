@@ -43,7 +43,6 @@ namespace Kurs.ViewModels
         #region Commands
 
         private DelegateCommand RunCommand;
-
         public ICommand runCommand
         {
             get
@@ -140,7 +139,6 @@ namespace Kurs.ViewModels
 
 
         private DelegateCommand FileSaveCommand;
-
         public ICommand fileSaveCommand
         {
             get
@@ -173,7 +171,6 @@ namespace Kurs.ViewModels
 
 
         private DelegateCommand FileLoadCommand;
-
         public ICommand fileLoadCommand
         {
             get
