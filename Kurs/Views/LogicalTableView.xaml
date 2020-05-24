@@ -9,7 +9,13 @@
     <Grid>
         <DataGrid Name="dataGrid"
                   AutoGenerateColumns="True"
-                  ItemsSource="{Binding}">
+                  ItemsSource="{Binding}"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserSortColumns="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserResizeColumns="True">
             
         </DataGrid>
     </Grid>
