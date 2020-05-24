@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Windows.Threading;
 using System.Windows.Interactivity;
 
 namespace Kurs.Views
@@ -46,10 +47,22 @@ namespace Kurs.Views
         }
 
         public static RoutedCommand RoutedDeleteCommand;
-        
+
+        private void view_Loaded(object sender, RoutedEventArgs e)
+        {
+            var dc = this.DataContext as WorkAreaViewModel;
+            if (dc != null)
+                dc.GatesLoaded += Refresh;
+        }
+
+        private static readonly Action EmptyDelegate = delegate { };
+        public void Refresh()
+        {
+            (this as UIElement).Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
+        }
     }
 
-    
+
 
 
     /// <summary>

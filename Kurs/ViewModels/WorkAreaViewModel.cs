@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Threading;
 
 using Kurs.Commands;
 using Kurs.Models;
@@ -143,6 +144,8 @@ namespace Kurs.ViewModels
 
             return;
         }
+
+        public event Action GatesLoaded;
 
         #endregion
 
@@ -541,6 +544,10 @@ namespace Kurs.ViewModels
             {
                 AddGate(new GateViewModelWithCoordinates(new GateViewModel(g.gate), g.X, g.Y));
             }
+
+            GatesLoaded();
+
+            RestoreConnections();
         }
 
         public void RestoreConnections()
