@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Kurs.Models;
 using Kurs.Commands;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace Kurs.ViewModels
 {
@@ -153,11 +154,20 @@ namespace Kurs.ViewModels
         }
         public void FileSave()
         {
-            using (FileStream fs = new FileStream(@"C:\Users\Boris\Desktop\Kurs.dat", FileMode.OpenOrCreate))
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "kurs files (*.kurs)|*.kurs|dat files (*.dat)|*.dat";
+            dialog.DefaultExt = "kurs";
+            dialog.FileName = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\KursCircuit";
+            if (dialog.ShowDialog() == true)
             {
-                BinaryFormatter formatter = new BinaryFormatter();
+                var path = dialog.FileName;
 
-                formatter.Serialize(fs, new WorkAreaSerialization(workArea));
+                using (FileStream fs = new FileStream(path, FileMode.Create))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+
+                    formatter.Serialize(fs, new WorkAreaSerialization(workArea));
+                }
             }
         }
 
@@ -177,32 +187,25 @@ namespace Kurs.ViewModels
         }
         public void FileLoad()
         {
-            using (FileStream fs = new FileStream(@"C:\Users\Boris\Desktop\Kurs.dat", FileMode.OpenOrCreate))
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "kurs files (*.kurs)|*.kurs|dat files (*.dat)|*.dat";
+            dialog.DefaultExt = "kurs";
+            dialog.FileName = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            if (dialog.ShowDialog() == true)
             {
-                BinaryFormatter formatter = new BinaryFormatter();
+                var path = dialog.FileName;
 
-                WorkAreaSerialization ser = formatter.Deserialize(fs) as WorkAreaSerialization;
-
-                workArea.Load(ser);
-            }
-        }
-
-        private DelegateCommand FileTestCommand;
-
-        public ICommand fileTestCommand
-        {
-            get
-            {
-                if (FileTestCommand == null)
+                using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
-                    FileTestCommand = new DelegateCommand(FileTest);
+                    BinaryFormatter formatter = new BinaryFormatter();
+
+                    WorkAreaSerialization ser = formatter.Deserialize(fs) as WorkAreaSerialization;
+
+                    workArea.Load(ser);
+
                 }
-                return FileTestCommand;
             }
-        }
-        public void FileTest()
-        {
-            workArea.RestoreConnections();
         }
 
         #endregion
