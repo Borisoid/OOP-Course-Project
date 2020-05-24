@@ -9,6 +9,7 @@ using Kurs.Models;
 using Kurs.Commands;
 using System.Windows;
 using Microsoft.Win32;
+using Kurs.Views;
 
 namespace Kurs.ViewModels
 {
@@ -20,21 +21,6 @@ namespace Kurs.ViewModels
             workArea = new WorkAreaViewModel();
 
             workArea.itemsPicker = itemsPicker;
-
-            #region Testing
-
-            //bool[] ar = { true, false, false, false, true, true, true, true };
-            //var g = new Gate("3AND", 3, ar);
-            //var gv = new GateViewModel(g);
-
-            //bool[] ar2 = { true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false };
-            //var g2 = new Gate("5AND", 5, ar2);
-            //var gv2 = new GateViewModel(g2);
-
-            //workArea.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv2, 20, 60));
-            //workArea.GateList.Add(new WorkAreaViewModel.GateViewModelWithCoordinates(gv, 150, 300));
-
-            #endregion
         }
 
         public ItemsPickerViewModel itemsPicker { get; set; }
@@ -76,7 +62,7 @@ namespace Kurs.ViewModels
             {
                 if(LookForCycle(g, new List<IHavePins>() ) )
                 {
-                    MessageBox.Show("There is a cycle. You cannot continue untill removing it.");
+                    MessageBox.Show("There is a cycle. You cannot continue while it is here.");
                     return;
                 }
             }
@@ -204,6 +190,10 @@ namespace Kurs.ViewModels
                 }
             }
         }
+
+
+        
+        
 
         #endregion
 

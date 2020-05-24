@@ -27,6 +27,11 @@
             </MenuItem>
             
             <MenuItem Command="{Binding runCommand}" Header="Run"/>
+            
+            <MenuItem Header="Add..">
+                <MenuItem DataContext="{Binding itemsPicker}" Command="{Binding addGateCommand}" Header="Add Gate"/>
+                <MenuItem DataContext="{Binding itemsPicker}" Command="{Binding addCategoryCommand}" Header="Add Category"/>
+            </MenuItem>
 
         </Menu>
         <local:ItemPicker Grid.Column="0"

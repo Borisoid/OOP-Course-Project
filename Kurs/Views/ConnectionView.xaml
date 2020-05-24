@@ -8,10 +8,22 @@
              d:DesignHeight="450" d:DesignWidth="800"
              x:Name="View"
              Loaded="View_Loaded">
+    <UserControl.Resources>
+        <Style x:Key="con" TargetType="Polyline">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="StrokeThickness" Value="6"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="false">
+                    <Setter Property="StrokeThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Canvas>
         <Polyline IsHitTestVisible="True"
                   Points="{Binding Points, ElementName=View}"
                   Stroke="Black"
-                  StrokeThickness="6"/>
+                  Style="{StaticResource con}"/>
     </Canvas>
 </UserControl>

@@ -29,30 +29,7 @@ namespace Kurs.ViewModels
             //when 'checked' property of 'Categories' item changes call 'FilterGates(object, LestChangedEventArgs)'
             Categories.ListChanged += FilterGates;
 
-            SQLiteCommand com = new SQLiteCommand(SQLiteCon);
-            com.CommandText = "SELECT * FROM view_Categories";
-            SQLiteDataReader dr = com.ExecuteReader();
-            while(dr.Read())
-            {
-                Categories.Add(new CheckedCategory(dr.GetString(0) ) );
-            }
-
-
-            
-
-
-
-            #region CommentedTests
-
-            //Categories.Add(new CheckedCategory("rnd", false));
-
-            //bool[] ar = { true, false, false, false, true, true, true, true };
-            //var g = new Gate("3AND", 3, ar);
-            //var gv = new GateViewModel(g);
-
-            //FilteredGates.Add(gv);
-
-            #endregion
+            QueryCategories();
         }
 
         #endregion
@@ -171,6 +148,19 @@ namespace Kurs.ViewModels
             }
         }
 
+        public void QueryCategories()
+        {
+            Categories.Clear();
+
+            SQLiteCommand com = new SQLiteCommand(SQLiteCon);
+            com.CommandText = "SELECT * FROM view_Categories";
+            SQLiteDataReader dr = com.ExecuteReader();
+            while (dr.Read())
+            {
+                Categories.Add(new CheckedCategory(dr.GetString(0)));
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -263,6 +253,37 @@ namespace Kurs.ViewModels
 
         #endregion
 
+        #region NewCategory
+
+        private DelegateCommand AddCategoryCommand;
+        public ICommand addCategoryCommand
+        {
+            get
+            {
+                if (AddCategoryCommand == null)
+                {
+                    AddCategoryCommand = new DelegateCommand(AddCategory);
+                }
+                return AddCategoryCommand;
+            }
+        }
+        public void AddCategory()
+        {
+            NewCategoryDialogWindow dialog = new NewCategoryDialogWindow();
+            if (dialog.ShowDialog() == true)
+            {
+                var cmd = SQLiteCon.CreateCommand();
+                cmd.CommandText = $"INSERT INTO tbl_Categories(Name) VALUES (@Name)";
+                cmd.Parameters.Add("@Name", System.Data.DbType.String).Value = dialog.CategoryName;
+
+                try { cmd.ExecuteNonQuery(); }
+                catch { }
+
+                QueryCategories();
+            }
+        }
+
+        #endregion
 
         #endregion
     }
