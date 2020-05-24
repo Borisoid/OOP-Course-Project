@@ -4,16 +4,21 @@ using System.Text;
 
 namespace Kurs.DataBase
 {
-    class QueryBilder
+    /// <summary>
+    /// Returns SQL query for retrieving Gates that correspond to each of categories in List<string> Categories.
+    /// If mentioned list is empty queries all gates.
+    /// </summary>
+    class CategoryQueryBilder : QueryBuilderBase
     {
-        public QueryBilder()
+        public CategoryQueryBilder()
         {
             Categories = new List<string>();
         }
 
         public List<string> Categories;
 
-        public string Query
+        
+        public override string Query
         {
             get
             {
