@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kurs.Views"
         mc:Ignorable="d"
-        Title="LogicalTableView" Height="450" Width="800">
+        Title="LogicalTableView"
+        x:Name="view"
+        Height="450"
+        
+        Loaded="view_Loaded"
+        ResizeMode="NoResize">
     <Grid>
         <DataGrid Name="dataGrid"
                   AutoGenerateColumns="True"
@@ -15,7 +20,8 @@
                   CanUserSortColumns="False"
                   CanUserReorderColumns="False"
                   CanUserResizeRows="False"
-                  CanUserResizeColumns="True">
+                  CanUserResizeColumns="False"
+                  RowHeaderWidth="0">
             
         </DataGrid>
     </Grid>

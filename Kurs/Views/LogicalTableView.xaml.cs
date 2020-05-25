@@ -21,5 +21,25 @@ namespace Kurs.Views
         {
             InitializeComponent();
         }
+
+        public int wndWidth
+        {
+            get { return colWidth * (InputsNumber + OutputsNumber + 1) ; }
+        }
+
+        public int colWidth = 29;
+
+        public int InputsNumber;
+        public int OutputsNumber;
+
+        private void view_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Width = wndWidth;
+            foreach(DataGridColumn dgc in dataGrid.Columns)
+            {
+                dgc.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+            }
+            dataGrid.Columns[InputsNumber - 1].Width = new DataGridLength(2, DataGridLengthUnitType.Star);/*new DataGridLength(2, DataGridLengthUnitType.Star);*/
+        }
     }
 }
