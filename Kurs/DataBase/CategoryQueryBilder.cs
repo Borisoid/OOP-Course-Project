@@ -26,10 +26,10 @@ namespace Kurs.DataBase
                 {
                     return @"
                             SELECT DISTINCT
-		                            GateName,
+		                            Name,
 		                            InputsNumber,
 		                            Function
-                            FROM view_CategoryDivision
+                            FROM view_Gates
                             ";
                 }
 
