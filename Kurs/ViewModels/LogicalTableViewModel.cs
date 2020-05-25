@@ -12,12 +12,15 @@ namespace Kurs.ViewModels
         IOValues IO;
         DataTable table;
 
+        int inputNum { get; set; }
+        int outputNum { get; set; }
+
         public LogicalTableViewModel(List<IOValues> IOList)
         {
             table = new DataTable();
 
-            int inputNum = IOList[0].IValues.Length;
-            int outputNum = IOList[0].OValues.Length;
+            inputNum = IOList[0].IValues.Length;
+            outputNum = IOList[0].OValues.Length;
 
             for (int i = inputNum - 1; i >= 0; i--)
             {
@@ -48,6 +51,9 @@ namespace Kurs.ViewModels
         {
             var view = new LogicalTableView();
             view.dataGrid.DataContext = table.DefaultView;
+
+            view.InputsNumber = inputNum;
+            view.OutputsNumber = outputNum;
 
             view.Show();
         }
