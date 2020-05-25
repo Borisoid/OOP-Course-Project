@@ -37,7 +37,7 @@
                 Gate name.
             </Label>
             <TextBox Margin="5"
-                     MaxLength="64"
+                     MaxLength="8"
                      x:Name="GateNameTextBox"/>
         </StackPanel>
         
