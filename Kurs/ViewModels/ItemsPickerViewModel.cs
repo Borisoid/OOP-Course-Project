@@ -26,7 +26,7 @@ namespace Kurs.ViewModels
             Categories = new BindingList<CheckedCategory>();
             FilteredGates = new BindingList<GateViewModel>();
 
-            //when 'checked' property of 'Categories' item changes call 'FilterGates(object, LestChangedEventArgs)'
+            //when 'checked' property of 'Categories' item changes call 'FilterGates(object, ListChangedEventArgs)'
             Categories.ListChanged += FilterGates;
 
             QueryCategories();
@@ -272,15 +272,79 @@ namespace Kurs.ViewModels
             NewCategoryDialogWindow dialog = new NewCategoryDialogWindow();
             if (dialog.ShowDialog() == true)
             {
-                var cmd = SQLiteCon.CreateCommand();
+                var con = SQLiteCon;
+                var tran = con.BeginTransaction();
+                var cmd = con.CreateCommand();
+                cmd.Transaction = tran;
                 cmd.CommandText = $"INSERT INTO tbl_Categories(Name) VALUES (@Name)";
                 cmd.Parameters.Add("@Name", System.Data.DbType.String).Value = dialog.CategoryName;
 
-                try { cmd.ExecuteNonQuery(); }
-                catch { }
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    tran.Commit();
+                }
+                catch(Exception ex)
+                {
+                    tran.Rollback();
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
                 QueryCategories();
             }
+        }
+
+        #endregion
+
+        #region NewGate
+
+        private DelegateCommand AddGateCommand;
+        public ICommand addGateCommand
+        {
+            get
+            {
+                if (AddGateCommand == null)
+                {
+                    AddGateCommand = new DelegateCommand(AddGate);
+                }
+                return AddGateCommand;
+            }
+        }
+        public void AddGate()
+        {
+            List<string> categories = new List<string>();
+            foreach (CheckedCategory cc in Categories)
+                if (cc.Category != "NATIVE" && cc.Category != "PERIPHERAL")
+                    categories.Add(cc.Category);
+            NewGateDialogWindow dialog = new NewGateDialogWindow(categories);
+
+            if(dialog.ShowDialog() == true)
+            {
+                var qb = new AddGateQueryBuilder();
+                qb.GateName = dialog.GateName;
+                qb.InputsNumber = dialog.Inputs;
+                qb.Function = dialog.Function;
+                qb.Categories = new List<string>(dialog.SelectedCategories);
+
+                var con = SQLiteCon;
+                var tran = con.BeginTransaction();
+                var cmd = con.CreateCommand();
+                cmd.Transaction = tran;
+                cmd.CommandText = qb.Query;
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    tran.Commit();
+
+                    FilterGates(null, null);
+                }
+                catch(Exception ex)
+                {
+                    tran.Rollback();
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
         }
 
         #endregion
