@@ -60,9 +60,9 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Background="GhostWhite"
-                                            BorderBrush="Gainsboro"
-                                            BorderThickness="1"
-                                            Margin="3">
+                                        BorderBrush="Gainsboro"
+                                        BorderThickness="1"
+                                        Margin="3">
                                     <StackPanel Orientation="Horizontal">
                                         <CheckBox Margin="5"
                                                       IsChecked="{Binding Checked}"

@@ -15,11 +15,15 @@ namespace Kurs.Views
     /// <summary>
     /// Логика взаимодействия для NewCategoryDialogWindow.xaml
     /// </summary>
-    public partial class NewCategoryDialogWindow : Window
+    public partial class OneRowDialogWindow : Window
     {
-        public NewCategoryDialogWindow()
+        public OneRowDialogWindow(string windowName, string question, int maxLen)
         {
             InitializeComponent();
+
+            Title = windowName;
+            Question.Content = question;
+            InputTextBox.MaxLength = maxLen;
         }
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)
@@ -33,7 +37,7 @@ namespace Kurs.Views
             InputTextBox.Focus();
         }
 
-        public string CategoryName
+        public string Answer
         {
             get { return InputTextBox.Text; }
         }

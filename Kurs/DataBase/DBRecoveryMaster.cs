@@ -37,9 +37,31 @@ namespace Kurs.DataBase
                                 'ID'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	                            'GateID'    INTEGER NOT NULL,
 	                            'CategoryID'    INTEGER NOT NULL,
-	                            FOREIGN KEY('GateID') REFERENCES 'tbl_Gates'('ID'),
+	                            FOREIGN KEY('GateID') REFERENCES 'tbl_Gates'('ID') ON DELETE CASCADE,
 	                            FOREIGN KEY('CategoryID') REFERENCES 'tbl_Categories'('ID')
                                 );";
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = @"CREATE TRIGGER tr_NativeGateDefender
+                                BEFORE DELETE
+                                ON tbl_Gates
+                                BEGIN
+	                                SELECT
+	                                CASE
+		                                WHEN OLD.ID in
+		                                (
+			                                SELECT tbl_Relations.GateID
+			                                FROM tbl_Relations
+			                                WHERE tbl_Relations.CategoryID IN
+				                                (
+					                                SELECT tbl_Categories.ID FROM tbl_Categories WHERE tbl_Categories.Name='NATIVE'
+				                                )
+		                                )
+	                                THEN
+   	                                    RAISE (ABORT,'Gates of category " + "\"NATIVE\"" + @" cannot be deleted.')
+                                        END;
+                                END;
+                                ";
             cmd.ExecuteNonQuery();
 
             cmd.CommandText = @"CREATE VIEW IF NOT EXISTS view_Gates AS

@@ -14,6 +14,7 @@ using Kurs.Models;
 using Kurs.ViewModels;
 using Kurs.Views;
 using Kurs.Commands;
+using System.Windows.Controls;
 
 namespace Kurs.ViewModels
 {
@@ -165,7 +166,6 @@ namespace Kurs.ViewModels
 
         #region Commands
 
-
         #region Search
 
         private DelegateCommand searchCommand;
@@ -269,7 +269,7 @@ namespace Kurs.ViewModels
         }
         public void AddCategory()
         {
-            NewCategoryDialogWindow dialog = new NewCategoryDialogWindow();
+            OneRowDialogWindow dialog = new OneRowDialogWindow("New category", "Enter new category name.", 32);
             if (dialog.ShowDialog() == true)
             {
                 var con = SQLiteCon;
@@ -277,7 +277,7 @@ namespace Kurs.ViewModels
                 var cmd = con.CreateCommand();
                 cmd.Transaction = tran;
                 cmd.CommandText = $"INSERT INTO tbl_Categories(Name) VALUES (@Name)";
-                cmd.Parameters.Add("@Name", System.Data.DbType.String).Value = dialog.CategoryName;
+                cmd.Parameters.Add("@Name", System.Data.DbType.String).Value = dialog.Answer;
 
                 try
                 {
@@ -345,6 +345,94 @@ namespace Kurs.ViewModels
                 }
             }
 
+        }
+
+        #endregion
+
+        #region DeleteCategory
+
+        private DelegateCommand DeleteCategoryCommand;
+        public ICommand deleteCategoryCommand
+        {
+            get
+            {
+                if (DeleteCategoryCommand == null)
+                {
+                    DeleteCategoryCommand = new DelegateCommand(DeleteCategory);
+                }
+                return DeleteCategoryCommand;
+            }
+        }
+        public void DeleteCategory()
+        {
+            var dialog = new OneRowDialogWindow("Delete category", "Enter name of category you want deleted.", 32);
+            if (dialog.ShowDialog() == true)
+            {
+                string cat = dialog.Answer;
+
+                var con = SQLiteCon;
+                var tran = con.BeginTransaction();
+                var cmd = con.CreateCommand();
+                cmd.Transaction = tran;
+                cmd.CommandText = $"DELETE FROM tbl_Categories WHERE Name = '{cat}';";
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    tran.Commit();
+
+                    QueryCategories();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        #endregion
+
+        #region DeleteGate
+
+        private DelegateCommand DeleteGateCommand;
+        public ICommand deleteGateCommand
+        {
+            get
+            {
+                if (DeleteGateCommand == null)
+                {
+                    DeleteGateCommand = new DelegateCommand(DeleteGate);
+                }
+                return DeleteGateCommand;
+            }
+        }
+        public void DeleteGate()
+        {
+            var dialog = new OneRowDialogWindow("Delete gate", "Enter name of gate you want deleted.", 8);
+            if (dialog.ShowDialog() == true)
+            {
+                string gat = dialog.Answer;
+
+                var con = SQLiteCon;
+                var tran = con.BeginTransaction();
+                var cmd = con.CreateCommand();
+                cmd.Transaction = tran;
+                cmd.CommandText = $"DELETE FROM tbl_Gates WHERE Name = '{gat}';";
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    tran.Commit();
+
+                    QueryCategories();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         #endregion

@@ -32,6 +32,10 @@
                 <MenuItem DataContext="{Binding itemsPicker}" Command="{Binding addGateCommand}" Header="Add Gate"/>
                 <MenuItem DataContext="{Binding itemsPicker}" Command="{Binding addCategoryCommand}" Header="Add Category"/>
             </MenuItem>
+            <MenuItem Header="Delete..">
+                <MenuItem DataContext="{Binding itemsPicker}" Command="{Binding deleteGateCommand}" Header="Delete Gate"/>
+                <MenuItem DataContext="{Binding itemsPicker}" Command="{Binding deleteCategoryCommand}" Header="Delete Category"/>
+            </MenuItem>
 
         </Menu>
         <local:ItemPicker Grid.Column="0"
