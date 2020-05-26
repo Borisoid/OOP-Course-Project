@@ -15,9 +15,8 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="20"/>
             <RowDefinition/>
-            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0"
               Grid.ColumnSpan="2">
@@ -46,9 +45,5 @@
                             Grid.Row="1"
                             DataContext="{Binding workArea}"
                             x:Name="workArea"/>
-        <StatusBar Grid.Row="2"
-                   Grid.ColumnSpan="2">
-            
-        </StatusBar>
     </Grid>
 </Window>

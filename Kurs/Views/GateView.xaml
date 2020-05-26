@@ -10,6 +10,16 @@
              Loaded="View_Loaded">
     <UserControl.Resources>
         <local:MarginConverter x:Key="marginConverter"></local:MarginConverter>
+        <Style x:Key="selected" TargetType="Rectangle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Selected}" Value="false">
+                    <Setter Property="Stroke" Value="Black"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Selected}" Value="true">
+                    <Setter Property="Stroke" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -43,7 +53,7 @@
                            Height="{Binding RectHeight, ElementName=View}"
                            Width="{Binding RectWidth, ElementName=View}"
                            Fill="LightGray"
-                           Stroke="Black"
+                           Style="{StaticResource selected}"
                            StrokeThickness="2">
 
                 </Rectangle>

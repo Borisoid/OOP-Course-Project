@@ -32,12 +32,22 @@ namespace Kurs.Views
         private static DependencyProperty X2Property;
         private static DependencyProperty Y2Property;
 
+        private static DependencyProperty SelectedProperty;
+
         static ConnectionView()
         {
             X1Property = DependencyProperty.Register("X1", typeof(double), typeof(ConnectionView));
             Y1Property = DependencyProperty.Register("Y1", typeof(double), typeof(ConnectionView));
             X2Property = DependencyProperty.Register("X2", typeof(double), typeof(ConnectionView));
             Y2Property = DependencyProperty.Register("Y2", typeof(double), typeof(ConnectionView));
+
+            SelectedProperty = DependencyProperty.Register("Selected", typeof(bool), typeof(ConnectionView));
+        }
+
+        public bool Selected
+        {
+            get { return (bool)GetValue(SelectedProperty); }
+            set { SetValue(SelectedProperty, value); }
         }
 
         public double X1

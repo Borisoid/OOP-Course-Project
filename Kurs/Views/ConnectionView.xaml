@@ -17,13 +17,18 @@
                 <Trigger Property="IsMouseOver" Value="false">
                     <Setter Property="StrokeThickness" Value="2"/>
                 </Trigger>
+                <DataTrigger Binding="{Binding Selected}" Value="false">
+                    <Setter Property="Stroke" Value="Black"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Selected}" Value="true">
+                    <Setter Property="Stroke" Value="Red"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
     <Canvas>
         <Polyline IsHitTestVisible="True"
                   Points="{Binding Points, ElementName=View}"
-                  Stroke="Black"
                   Style="{StaticResource con}"/>
     </Canvas>
 </UserControl>
