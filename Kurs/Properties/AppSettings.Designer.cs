@@ -25,7 +25,7 @@ namespace Kurs.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\DataBase\\db.sqlite")]
+        [global::System.Configuration.DefaultSettingValueAttribute("db.sqlite")]
         public string DB_path {
             get {
                 return ((string)(this["DB_path"]));

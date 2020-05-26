@@ -40,7 +40,10 @@
                                 Height="22"
                                 Width="40"
                                 HorizontalAlignment="Right"
-                                Command="{Binding SearchCommand}"/>
+                                Command="{Binding SearchCommand}">
+                            <Image Source="..\Data\Search.jpg"
+                                   IsHitTestVisible="False"/>
+                        </Button>
                     </Grid>
                 </StackPanel>
             </Border>
