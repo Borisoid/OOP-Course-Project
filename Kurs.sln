@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kurs", "Kurs\Kurs.csproj", "{17A6C65E-0FBB-4E99-A43C-39D0EDF96926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kurs", "Kurs\Kurs.csproj", "{17A6C65E-0FBB-4E99-A43C-39D0EDF96926}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{DE23ED5D-7DE2-4C70-8006-D5BC7565515A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{17A6C65E-0FBB-4E99-A43C-39D0EDF96926}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17A6C65E-0FBB-4E99-A43C-39D0EDF96926}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17A6C65E-0FBB-4E99-A43C-39D0EDF96926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE23ED5D-7DE2-4C70-8006-D5BC7565515A}.Debug|Any CPU.ActiveCfg = Debug
+		{DE23ED5D-7DE2-4C70-8006-D5BC7565515A}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
