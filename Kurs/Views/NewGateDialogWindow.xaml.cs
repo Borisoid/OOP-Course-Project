@@ -122,7 +122,7 @@ namespace Kurs.Views
                 else
                     e.Handled = true;
             }
-            if(e.Key == Key.Back || e.Key == Key.Delete)
+            if(e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Left || e.Key == Key.Right)
             { return; }
             else
                 e.Handled = true;

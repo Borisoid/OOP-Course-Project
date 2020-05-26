@@ -49,38 +49,11 @@ namespace Kurs.Views
         static GateView()
         {
             ShowBottomLabelsProperty = DependencyProperty.Register("ShowBottomLabels", typeof(bool), typeof(GateView));
+            SelectedProperty = DependencyProperty.Register("Selected", typeof(bool), typeof(GateView));
         }
 
         #endregion
 
-        //private static DependencyProperty SelectedProperty;
-        //static GateView()
-        //{
-        //    SelectedProperty = DependencyProperty.Register("Selected", typeof(bool), typeof(GateView));
-        //}
-        //public bool Selected
-        //{
-        //    get { return (bool)GetValue(SelectedProperty); }
-        //    set { SetValue(SelectedProperty, value); OnPropertyChanged("OutlineColor"); }
-        //}
-        //public SolidColorBrush OutlineColor
-        //{
-        //    get
-        //    {
-        //        if(Selected)
-        //        {
-        //            var b = new SolidColorBrush();
-        //            b.Color = Colors.Red;
-        //            return b;
-        //        }
-        //        else
-        //        {
-        //            var b = new SolidColorBrush();
-        //            b.Color = Colors.Black;
-        //            return b;
-        //        }
-        //    }
-        //}
 
         #region Properties
 
@@ -155,7 +128,7 @@ namespace Kurs.Views
 
         #endregion
 
-
+        private static DependencyProperty SelectedProperty;
         private static DependencyProperty ShowBottomLabelsProperty;
         public bool ShowBottomLabels
         {
@@ -165,6 +138,11 @@ namespace Kurs.Views
                 SetValue(ShowBottomLabelsProperty, value);
                 OnPropertyChanged("BottomLabelHeight");
             }
+        }
+        public bool Selected
+        {
+            get { return (bool)GetValue(SelectedProperty); }
+            set { SetValue(SelectedProperty, value); }
         }
 
 

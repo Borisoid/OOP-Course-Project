@@ -75,7 +75,8 @@
                             <local:ConnectionView X1="{Binding X1}"
                                                   X2="{Binding X2}"
                                                   Y1="{Binding Y1}"
-                                                  Y2="{Binding Y2}">
+                                                  Y2="{Binding Y2}"
+                                                  Selected="{Binding Selected}">
                                 <i:Interaction.Triggers>
                                     <local:HandlingEventTrigger EventName="MouseLeftButtonDown">
                                         <i:InvokeCommandAction Command="{Binding DataContext.SelectConnectionCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"

@@ -309,7 +309,15 @@ namespace Kurs.ViewModels
                     OnPropertyChanged("Y2");
                 }
             }
-
+            public bool Selected
+            {
+                get { return _selected; }
+                set
+                {
+                    _selected = value;
+                    OnPropertyChanged("Selected");
+                }
+            }
 
             #endregion
 
@@ -331,7 +339,7 @@ namespace Kurs.ViewModels
             #region Data
 
             public ConnectionViewModel connectionViewModel;
-            //public WorkAreaView View;
+            public bool _selected;
             public double _x1;
             public double _y1;
             public double _x2;
@@ -417,7 +425,7 @@ namespace Kurs.ViewModels
                 if (_selectedGateViewModelWithCoordinates != null)
                     _selectedGateViewModelWithCoordinates.IsSelected = false;
                 _selectedGateViewModelWithCoordinates = value;
-                if (_selectedConnectionViewModelWithCoordinates != null)
+                if (_selectedGateViewModelWithCoordinates != null)
                     _selectedGateViewModelWithCoordinates.IsSelected = true;
             }
         }
@@ -451,10 +459,11 @@ namespace Kurs.ViewModels
             get { return _selectedConnectionViewModelWithCoordinates; }
             set
             {
-                //if (_selectedConnectionViewModelWithCoordinates != null)
-                //    _selectedConnectionViewModelWithCoordinates.Selected = false;
+                if (_selectedConnectionViewModelWithCoordinates != null)
+                    _selectedConnectionViewModelWithCoordinates.Selected = false;
                 _selectedConnectionViewModelWithCoordinates = value;
-                //_selectedConnectionViewModelWithCoordinates.Selected = true;
+                if(_selectedConnectionViewModelWithCoordinates != null)
+                    _selectedConnectionViewModelWithCoordinates.Selected = true;
             }
         }
         public ConnectionViewModelWithCoordinates _selectedConnectionViewModelWithCoordinates;

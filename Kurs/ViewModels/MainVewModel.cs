@@ -50,6 +50,8 @@ namespace Kurs.ViewModels
             List<Gate> Inputs = new List<Gate>();
             List<Gate> Outputs = new List<Gate>();
 
+            workArea.Renumber();
+
             foreach (WorkAreaViewModel.GateViewModelWithCoordinates g in workArea.GateList)
             {
                 if (g.gateViewModel.Name == "SOURCE")
