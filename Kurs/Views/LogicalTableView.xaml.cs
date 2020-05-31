@@ -39,6 +39,8 @@ namespace Kurs.Views
             {
                 dgc.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
             }
+            if (InputsNumber == 0)
+                return;
             dataGrid.Columns[InputsNumber - 1].Width = new DataGridLength(2, DataGridLengthUnitType.Star);/*new DataGridLength(2, DataGridLengthUnitType.Star);*/
         }
     }
