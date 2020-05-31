@@ -272,6 +272,12 @@ namespace Kurs.ViewModels
             OneRowDialogWindow dialog = new OneRowDialogWindow("New category", "Enter new category name.", 32);
             if (dialog.ShowDialog() == true)
             {
+                if(dialog.Answer.Length <= 0)
+                {
+                    MessageBox.Show("String length cannot be less than 1");
+                    return;
+                }
+
                 var con = SQLiteCon;
                 var tran = con.BeginTransaction();
                 var cmd = con.CreateCommand();
@@ -368,6 +374,12 @@ namespace Kurs.ViewModels
             var dialog = new OneRowDialogWindow("Delete category", "Enter name of category you want deleted.", 32);
             if (dialog.ShowDialog() == true)
             {
+                if (dialog.Answer.Length <= 0)
+                {
+                    MessageBox.Show("String length cannot be less than 1");
+                    return;
+                }
+
                 string cat = dialog.Answer;
 
                 var con = SQLiteCon;
@@ -412,6 +424,12 @@ namespace Kurs.ViewModels
             var dialog = new OneRowDialogWindow("Delete gate", "Enter name of gate you want deleted.", 8);
             if (dialog.ShowDialog() == true)
             {
+                if (dialog.Answer.Length <= 0)
+                {
+                    MessageBox.Show("String length cannot be less than 1");
+                    return;
+                }
+
                 string gat = dialog.Answer;
 
                 var con = SQLiteCon;

@@ -103,26 +103,6 @@ namespace Kurs.ViewModels
 
             var lvm = new LogicalTableViewModel(IOList);
             lvm.ShowView();
-
-            #region CommentedTests
-
-            //foreach (WorkAreaViewModel.GateViewModelWithCoordinates g in workArea.GateList)
-            //{
-            //    if (g.gateViewModel.Name == "SOURCE")
-            //        g.gateViewModel.gate.OutputValue = true;
-            //}
-            //foreach (WorkAreaViewModel.GateViewModelWithCoordinates g in workArea.GateList)
-            //{
-            //    if (g.gateViewModel.Name == "READER")
-            //    {
-            //        if (!LookForCycle(g.gateViewModel.gate, new List<IHavePins>()))
-            //            MessageBox.Show(g.gateViewModel.gate.OutputValue.ToString());
-            //        else
-            //            MessageBox.Show("there's a cycle bitch");
-            //    }
-            //}
-
-            #endregion
         }
 
 

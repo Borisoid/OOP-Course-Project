@@ -21,7 +21,7 @@
         <ScrollViewer HorizontalScrollBarVisibility="Visible"
                       VerticalScrollBarVisibility="Visible">
         
-            <Canvas Height="1000" Width="1000"
+            <Canvas Height="3000" Width="3000"
                     Name="canvas"
                     PreviewMouseLeftButtonDown="canvas_PreviewMouseLeftButtonDown">
                 <i:Interaction.Triggers>

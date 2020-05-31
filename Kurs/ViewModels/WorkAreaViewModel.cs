@@ -382,7 +382,11 @@ namespace Kurs.ViewModels
         private void Place(System.Windows.Point p)
         {
             if (itemsPicker.SelectedGateViewModel != null)
-                AddGate(new GateViewModelWithCoordinates((GateViewModel)itemsPicker.SelectedGateViewModel.Clone(), (int)p.X, (int)p.Y));
+                AddGate(new GateViewModelWithCoordinates(
+                            (GateViewModel)itemsPicker.SelectedGateViewModel.Clone(),
+                            (int)p.X,
+                            (int)p.Y)
+                        );
         }
 
         #endregion
