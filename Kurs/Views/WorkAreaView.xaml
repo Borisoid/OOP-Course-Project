@@ -21,7 +21,7 @@
         <ScrollViewer HorizontalScrollBarVisibility="Visible"
                       VerticalScrollBarVisibility="Visible">
         
-            <Canvas Height="3000" Width="3000"
+            <Canvas Height="10000" Width="10000"
                     Name="canvas"
                     PreviewMouseLeftButtonDown="canvas_PreviewMouseLeftButtonDown">
                 <i:Interaction.Triggers>
@@ -30,8 +30,8 @@
                                                CommandParameter="{Binding ElementName=view, Path=PointingTo}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <Rectangle Height="1000"
-                           Width="1000"
+                <Rectangle Height="10000"
+                           Width="10000"
                            Opacity="0"
                            Fill="White"/>
                 <ItemsControl ItemsSource="{Binding GateList}">

@@ -516,6 +516,7 @@ namespace Kurs.ViewModels
                     while (cvms.Count != 0)
                     {
                         cvms[0].Disconnect();
+                        cvms.RemoveAt(0);
                     }
                 }
                 GateList.Remove(SelectedGateViewModelWithCoordinates);
